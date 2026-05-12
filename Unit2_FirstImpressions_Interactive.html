@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 2 — First Impressions in Business | TalkItEasy Agro</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #1a5c38;
+  --green-light: #e8f5ee;
+  --green-mid: #c2e0cc;
+  --green-dark: #0f3a22;
+  --amber: #b85c00;
+  --amber-light: #fff3e0;
+  --navy: #1a2a5c;
+  --navy-light: #eef3fb;
+  --teal: #1a4a4a;
+  --teal-light: #e0f2f2;
+  --white: #ffffff;
+  --off-white: #fafaf8;
+  --text: #1a1a1a;
+  --muted: #666666;
+  --border: #d4d4d0;
+  --shadow: 0 2px 12px rgba(26,92,56,0.08);
+  --radius: 10px;
+  --radius-sm: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--off-white);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* HEADER */
+.site-header {
+  background: var(--green);
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+}
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+.brand {
+  font-family: 'DM Serif Display', serif;
+  color: var(--white);
+  font-size: 18px;
+  letter-spacing: 0.3px;
+}
+.brand span {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  opacity: 0.75;
+  margin-left: 8px;
+}
+.unit-badge {
+  background: rgba(255,255,255,0.15);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* WEEK TABS */
+.week-bar {
+  background: var(--green-dark);
+  padding: 0 24px;
+  display: flex;
+  gap: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.week-bar::-webkit-scrollbar { display: none; }
+.week-tab {
+  color: rgba(255,255,255,0.55);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.week-tab:hover { color: rgba(255,255,255,0.85); }
+.week-tab.active {
+  color: var(--white);
+  border-bottom-color: #7ed4a0;
+}
+
+/* DAY TABS */
+.tabs-wrapper {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  position: sticky;
+  top: 56px;
+  z-index: 90;
+  box-shadow: var(--shadow);
+}
+.tabs-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 10px 0;
+}
+.tabs-inner::-webkit-scrollbar { display: none; }
+.tab-btn {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.tab-btn:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+.tab-btn.active {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--white);
+}
+.tab-btn.week2 {
+  border-color: var(--teal);
+}
+.tab-btn.week2.active {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--white);
+}
+.tab-btn.week2:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+/* CONTENT */
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+.day-panel { display: none; }
+.day-panel.active { display: block; }
+
+/* DAY HEADER */
+.day-header {
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.day-header.week1 { background: var(--green); }
+.day-header.week2 { background: var(--teal); }
+.day-header::after {
+  content: '';
+  position: absolute;
+  right: -20px; top: -20px;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+.day-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.day-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  color: var(--white);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.day-subtitle {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  font-weight: 400;
+}
+.day-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.15);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-top: 12px;
+}
+
+/* SECTIONS */
+.section {
+  margin-bottom: 36px;
+}
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  color: var(--green);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title.teal { color: var(--teal); }
+.section-time {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 12px;
+}
+.section-intro {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+hr.section-rule {
+  border: none;
+  border-top: 1.5px solid var(--green-mid);
+  margin: 28px 0;
+}
+hr.section-rule.teal {
+  border-top-color: var(--teal-light);
+}
+
+/* QUESTION BLOCKS */
+.question-block {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.question-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.question-label.teal { color: var(--teal); }
+.question-label.navy { color: var(--navy); }
+.question-label.amber { color: var(--amber); }
+.question-text {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+.question-hint {
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+/* INPUTS */
+textarea {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--off-white);
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  line-height: 1.6;
+}
+textarea:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(26,92,56,0.1);
+  background: var(--white);
+}
+textarea.teal:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(26,74,74,0.1);
+}
+input[type="text"] {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--off-white);
+  transition: border-color 0.2s;
+}
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(26,92,56,0.1);
+  background: var(--white);
+}
+
+/* INFO BOXES */
+.tip-box {
+  background: var(--green-light);
+  border-left: 3px solid var(--green);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.6;
+  margin: 12px 0;
+}
+.tip-box.amber {
+  background: var(--amber-light);
+  border-left-color: var(--amber);
+}
+.tip-box.navy {
+  background: var(--navy-light);
+  border-left-color: var(--navy);
+}
+.tip-box.teal {
+  background: var(--teal-light);
+  border-left-color: var(--teal);
+}
+
+/* GRAMMAR BOX */
+.grammar-box {
+  background: var(--navy);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin: 16px 0;
+}
+.grammar-formula {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--white);
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+.grammar-examples {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.grammar-example {
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+  font-style: italic;
+  padding-left: 12px;
+  border-left: 2px solid rgba(255,255,255,0.25);
+}
+
+/* VOCAB CARD */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 16px 0;
+}
+.vocab-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.vocab-card-header {
+  background: var(--green);
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+}
+.vocab-card-header.teal { background: var(--teal); }
+.vocab-card-body {
+  padding: 12px 14px;
+}
+.vocab-def {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.vocab-quote {
+  font-size: 11px;
+  color: var(--navy);
+  font-style: italic;
+  border-left: 2px solid var(--navy-light);
+  padding-left: 8px;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+/* CHUNK BOX */
+.chunk-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 16px 0;
+  background: var(--green-light);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.chunk-item {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green);
+  padding: 6px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  line-height: 1.4;
+}
+.chunk-item::before {
+  content: '✅';
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.chunk-grid.teal { background: var(--teal-light); }
+.chunk-grid.teal .chunk-item { color: var(--teal); }
+
+/* FILL-IN */
+.fill-sentence {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.8;
+  margin-bottom: 6px;
+}
+.fill-line {
+  display: inline-block;
+  width: 180px;
+  border-bottom: 2px solid var(--green);
+  margin: 0 4px;
+  vertical-align: bottom;
+}
+
+/* CULTURE CARDS */
+.culture-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin: 16px 0;
+}
+.culture-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.culture-card-header {
+  background: var(--green);
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+  text-align: center;
+}
+.culture-card-body {
+  padding: 12px;
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* TIP CARDS (video tips) */
+.tip-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.tip-card-header {
+  background: var(--teal);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tip-number {
+  background: rgba(255,255,255,0.2);
+  color: var(--white);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+.tip-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+}
+.tip-card-body { padding: 16px; }
+.tip-quote {
+  font-size: 12px;
+  color: var(--teal);
+  font-style: italic;
+  background: var(--teal-light);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.tip-vocab-hint {
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 6px;
+}
+
+/* TOOLBAR */
+.toolbar {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 200;
+}
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 24px;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.toolbar-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+.toolbar-btn.save { background: var(--green); color: var(--white); }
+.toolbar-btn.download { background: var(--navy); color: var(--white); }
+.toolbar-btn.clear { background: var(--white); color: var(--amber); border: 1.5px solid var(--amber); }
+
+/* SAVE INDICATOR */
+.save-indicator {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  font-size: 12px;
+  color: var(--muted);
+  background: var(--white);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.save-indicator.show { opacity: 1; }
+
+/* PROGRESS BAR */
+.progress-bar {
+  background: var(--green-light);
+  border-radius: 4px;
+  height: 4px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green), #4caf82);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+/* TARGET MARKET SELECTOR */
+.market-selector {
+  display: flex;
+  gap: 12px;
+  margin: 12px 0;
+}
+.market-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  transition: all 0.2s;
+  background: var(--white);
+}
+.market-option:hover { border-color: var(--green); color: var(--green); }
+.market-option.selected { border-color: var(--green); color: var(--green); background: var(--green-light); }
+
+/* RANKING INPUT */
+.ranking-grid {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 8px 12px;
+  align-items: center;
+  margin: 12px 0;
+}
+.rank-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--teal);
+  text-align: center;
+}
+
+/* SENTENCE BLOCK (Day 9) */
+.sentence-block {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.sentence-quote {
+  background: var(--teal-light);
+  border-left: 3px solid var(--teal);
+  padding: 14px 18px;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--teal);
+  line-height: 1.6;
+}
+.sentence-body { padding: 16px 18px; }
+
+/* READY BOX */
+.ready-box {
+  background: var(--green);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin-top: 28px;
+  text-align: center;
+}
+.ready-box p {
+  color: rgba(255,255,255,0.85);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+.ready-box p:last-child { margin-bottom: 0; }
+.ready-box strong { color: var(--white); }
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .site-header { padding: 0 16px; }
+  .brand span { display: none; }
+  .content { padding: 20px 16px 80px; }
+  .day-header { padding: 20px 20px; }
+  .day-title { font-size: 20px; }
+  .vocab-grid { grid-template-columns: 1fr; }
+  .culture-grid { grid-template-columns: 1fr; }
+  .chunk-grid { grid-template-columns: 1fr; }
+  .market-selector { flex-direction: column; }
+  .toolbar { bottom: 16px; right: 16px; }
+  .tabs-inner { padding: 8px 0; }
+  .tab-btn { font-size: 11px; padding: 5px 10px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">TalkItEasy <span>Agro English Program</span></div>
+    <div class="unit-badge">Unit 2</div>
+  </div>
+</header>
+
+<div class="week-bar">
+  <div class="week-tab active" onclick="switchWeek(1)">Week 1 — Grammar</div>
+  <div class="week-tab" onclick="switchWeek(2)">Week 2 — Listening</div>
+</div>
+
+<div class="tabs-wrapper">
+  <div class="tabs-inner" id="tabsInner">
+    <button class="tab-btn active" onclick="switchDay(1)">Day 1</button>
+    <button class="tab-btn" onclick="switchDay(2)">Day 2</button>
+    <button class="tab-btn" onclick="switchDay(3)">Day 3</button>
+    <button class="tab-btn" onclick="switchDay(4)">Day 4</button>
+    <button class="tab-btn" onclick="switchDay(5)">Day 5</button>
+    <button class="tab-btn week2" onclick="switchDay(6)">Day 6</button>
+    <button class="tab-btn week2" onclick="switchDay(7)">Day 7</button>
+    <button class="tab-btn week2" onclick="switchDay(8)">Day 8</button>
+    <button class="tab-btn week2" onclick="switchDay(9)">Day 9</button>
+    <button class="tab-btn week2" onclick="switchDay(10)">Day 10</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════════ DAY 1 ═══════════════════════════════ -->
+<div class="day-panel active" id="day-1">
+  <div class="day-header week1">
+    <div class="day-number">Week 1 · Unit 2 · First Impressions in Business</div>
+    <div class="day-title">Activate Knowledge + Diagnostic</div>
+    <div class="day-subtitle">Establish your personal baseline — there are no right or wrong answers</div>
+    <div class="day-time">⏱ 20–25 minutes</div>
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
+
+  <div class="tip-box">Today's goal is to activate your existing knowledge about first impressions and establish a personal baseline. Write your authentic ideas. This is YOUR starting point, and you will return to it on Day 5.</div>
+
+  <div class="section">
+    <div class="section-title">Part 1: Hook Questions</div>
+    <div class="section-time">⏱ 12–15 MINUTES</div>
+    <div class="section-intro">Read each question carefully. Think before you write. Minimum 3–4 sentences per answer.</div>
+
+    <div class="question-block">
+      <div class="question-label">Question 1</div>
+      <div class="question-text">Think about a moment when the language barrier cost you a professional opportunity. What happened? How did it affect the outcome? What would you have said if you had the words?</div>
+      <textarea id="d1_q1" placeholder="Write your answer here..." rows="5"></textarea>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">Question 2</div>
+      <div class="question-text">In your current role, how important is making a strong first impression with international contacts — buyers, suppliers, partners? Give a specific example from your routine.</div>
+      <textarea id="d1_q2" placeholder="Write your answer here..." rows="5"></textarea>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">Question 3</div>
+      <div class="question-text">If you could change ONE thing about how you present yourself in English, what would it be? Why? How would it change your professional relationships?</div>
+      <textarea id="d1_q3" placeholder="Write your answer here..." rows="5"></textarea>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+
+  <div class="section">
+    <div class="section-title">Part 2: Your Baseline</div>
+    <div class="section-time">⏱ 8–10 MINUTES</div>
+    <div class="section-intro">Scenario: You are meeting an international business partner for the first time. Write your responses below. You will come back to this on Day 5 to see how far you have come.</div>
+
+    <div class="question-block">
+      <div class="question-label">Part A — Your Current Approach (Present Simple)</div>
+      <div class="question-text">Write 2–3 sentences about how you TYPICALLY approach first meetings in English.</div>
+      <div class="question-hint">Use starters like: I usually..., Typically, I..., When I meet someone new, I...<br>Example: "I usually arrive early and prepare a few topics, but I tend to be too formal. I focus on business immediately instead of building rapport."</div>
+      <textarea id="d1_baseline_a" placeholder="Write your answer here..." rows="4"></textarea>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">Part B — What You Would Change (Second Conditional)</div>
+      <div class="question-text">Write 2–3 sentences about what you would do DIFFERENTLY if you could start over.</div>
+      <div class="question-hint">Use starters like: If I had more time..., If I were more confident..., If I could change one thing...<br>Example: "If I had more confidence in English, I would speak more naturally. If I were more relaxed, I would smile more and make better eye contact."</div>
+      <textarea id="d1_baseline_b" placeholder="Write your answer here..." rows="4"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ DAY 2 ═══════════════════════════════ -->
+<div class="day-panel" id="day-2">
+  <div class="day-header week1">
+    <div class="day-number">Week 1 · Unit 2 · First Impressions in Business</div>
+    <div class="day-title">Vocabulary Building + Present Simple</div>
+    <div class="day-subtitle">Build the vocabulary that will carry your conversations</div>
+    <div class="day-time">⏱ 20–25 minutes</div>
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
+
+  <div class="tip-box">Work through all 13 items using your real professional context — not generic examples. At the end, you will identify the 3 that matter most to you.</div>
+
+  <div class="section">
+    <div class="section-title">Part 1: Vocabulary in Context</div>
+    <div class="section-time">⏱ 12–15 MINUTES</div>
+    <div class="section-intro">For each item, write 1–2 sentences connecting it to your actual job, company, or daily routine. Use the contextual example as a reference, not a template.</div>
+
+    <div id="vocab-items-d2"></div>
+  </div>
+
+  <hr class="section-rule">
+
+  <div class="section">
+    <div class="section-title">Part 2: Your Top 3</div>
+    <div class="section-time">⏱ 5 MINUTES</div>
+    <div class="section-intro">Look back at your 13 answers. Choose the 3 vocabulary items that best represent your biggest challenge when meeting international contacts. Write them below and explain why you chose each one.</div>
+    <div class="tip-box amber">Your professor will use this directly in class. Be specific.</div>
+    <textarea id="d2_top3" placeholder="Write your Top 3 and explain why..." rows="6"></textarea>
+  </div>
+
+  <hr class="section-rule">
+
+  <div class="section">
+    <div class="section-title">Part 3: Present Simple</div>
+    <div class="section-time">⏱ 5–8 MINUTES</div>
+    <div class="section-intro">Write 5 sentences about your professional reality right now using the starters below.</div>
+
+    <div class="tip-box navy">Note for class: Your professor will ask you to expand on your Top 3 vocabulary choices and connect them to your Present Simple sentences.</div>
+
+    <div id="present-simple-starters"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ DAY 3 ═══════════════════════════════ -->
+<div class="day-panel" id="day-3">
+  <div class="day-header week1">
+    <div class="day-number">Week 1 · Unit 2 · First Impressions in Business</div>
+    <div class="day-title">Second Conditional + Transformation Practice</div>
+    <div class="day-subtitle">The grammar that turns passive responses into powerful communication</div>
+    <div class="day-time">⏱ 20–25 minutes</div>
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
+
+  <div class="section">
+    <div class="section-title">Part 1: Spot and Fix the Errors</div>
+    <div class="section-time">⏱ 5–7 MINUTES</div>
+    <div class="section-intro">Before learning the structure, try to identify what's wrong in each sentence. Trust your instinct — you already know more than you think.</div>
+
+    <div class="question-block">
+      <div class="question-label">Sentence 1</div>
+      <div class="question-text" style="font-style:italic; color: #c0392b;">"If I have more confidence, I would speak more."</div>
+      <div class="question-hint">What's wrong?</div>
+      <textarea id="d3_err1" placeholder="Identify the error and correct it..." rows="2"></textarea>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">Sentence 2</div>
+      <div class="question-text" style="font-style:italic; color: #c0392b;">"If I were you, I will try to be more friendly."</div>
+      <div class="question-hint">What's wrong?</div>
+      <textarea id="d3_err2" placeholder="Identify the error and correct it..." rows="2"></textarea>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">Sentence 3</div>
+      <div class="question-text" style="font-style:italic; color: #c0392b;">"If we changing the supplier, we would improve quality."</div>
+      <div class="question-hint">What's wrong?</div>
+      <textarea id="d3_err3" placeholder="Identify the error and correct it..." rows="2"></textarea>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+
+  <div class="section">
+    <div class="section-title">Part 2: The Structure</div>
+    <div class="section-time">⏱ 5 MINUTES</div>
+
+    <div class="grammar-box">
+      <div class="grammar-formula">IF + PAST SIMPLE → WOULD + BASE VERB</div>
+      <div class="grammar-examples">
+        <div class="grammar-example">If I had more confidence, I would speak more during the meeting.</div>
+        <div class="grammar-example">If I were in a meeting with an important client, I would prepare more.</div>
+        <div class="grammar-example">If we could change our approach, we would improve our results.</div>
+      </div>
+    </div>
+
+    <div class="tip-box">Key patterns: <strong>If + had</strong> (If I had more time) · <strong>If + were</strong> (If I were in Germany) · <strong>If + changed</strong> (If we changed our approach)</div>
+    <div class="tip-box amber">Now go back to your error corrections above. Were you right? Fix any corrections if needed.</div>
+  </div>
+
+  <hr class="section-rule">
+
+  <div class="section">
+    <div class="section-title">Part 3: Create Your Own Sentences</div>
+    <div class="section-time">⏱ 10–12 MINUTES</div>
+    <div class="section-intro">Write 5 Second Conditional sentences about YOUR hypothetical professional situations. Be specific to your reality in agribusiness. Your professor will ask you to explain why these situations matter to you.</div>
+
+    <div id="second-conditional-sentences"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ DAY 4 ═══════════════════════════════ -->
+<div class="day-panel" id="day-4">
+  <div class="day-header week1">
+    <div class="day-number">Week 1 · Unit 2 · First Impressions in Business</div>
+    <div class="day-title">Cultural Awareness + Chunk Practice</div>
+    <div class="day-subtitle">Develop the ability to adapt your communication style to your audience</div>
+    <div class="day-time">⏱ ~25 minutes</div>
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
+
+  <div class="section">
+    <div class="section-title">Part 1: Predict First</div>
+    <div class="section-time">⏱ 5 MINUTES</div>
+    <div class="section-intro">Before reading anything, write your predictions. Trust your experience.</div>
+
+    <div class="question-block">
+      <div class="question-label">Germany</div>
+      <div class="question-text">Small talk or professionalism — which matters more in a first impression?</div>
+      <textarea id="d4_pred_de" placeholder="Your prediction..." rows="2"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label">Japan</div>
+      <div class="question-text">What do people notice about your behavior in the first 30 seconds?</div>
+      <textarea id="d4_pred_jp" placeholder="Your prediction..." rows="2"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label">Brazil</div>
+      <div class="question-text">Formal or friendly — which works better in a first meeting?</div>
+      <textarea id="d4_pred_br" placeholder="Your prediction..." rows="2"></textarea>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+
+  <div class="section">
+    <div class="section-title">Part 2: Read and Compare</div>
+    <div class="section-time">⏱ 8–10 MINUTES</div>
+
+    <div class="culture-grid">
+      <div class="culture-card">
+        <div class="culture-card-header">🇧🇷 Brazil — Warmth & Connection</div>
+        <div class="culture-card-body">First impressions are built on personal connection. Brazilians value small talk before business. Eye contact shows confidence and honesty. Open body language signals interest. Being too formal or distant can seem unfriendly or arrogant.</div>
+      </div>
+      <div class="culture-card">
+        <div class="culture-card-header">🇩🇪 Germany — Precision & Professionalism</div>
+        <div class="culture-card-body">Punctuality and preparation are paramount. Germans appreciate clarity and dislike wasted time. Formal titles and proper etiquette matter. A firm handshake and professional appearance are expected. Being too casual can make people question your competence.</div>
+      </div>
+      <div class="culture-card">
+        <div class="culture-card-header">🇯🇵 Japan — Respect & Formality</div>
+        <div class="culture-card-body">Respect and humility are central. The exchange of business cards (meishi) is a ritual performed with both hands. Bowing shows respect. Japanese professionals value long-term relationships. Being too loud, assertive, or casual can be seen as disrespectful.</div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">Now revise your predictions</div>
+      <div class="question-text">What surprised you most?</div>
+      <textarea id="d4_surprise" placeholder="Write what surprised you..." rows="3"></textarea>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+
+  <div class="section">
+    <div class="section-title">Part 3: Chunk Practice</div>
+    <div class="section-time">⏱ 8–10 MINUTES</div>
+    <div class="section-intro">Complete all 12 chunks using your real professional context in agribusiness.</div>
+
+    <div id="chunk-practice-d4"></div>
+  </div>
+
+  <hr class="section-rule">
+
+  <div class="section">
+    <div class="section-title">Part 4: Your One Change</div>
+    <div class="section-time">⏱ 3 MINUTES</div>
+    <div class="question-block">
+      <div class="question-text">Based on everything you learned today, what is the ONE thing you would change about how you currently approach international meetings? Be specific.</div>
+      <textarea id="d4_one_change" placeholder="Be specific — one concrete thing..." rows="4"></textarea>
+      <div class="question-hint" style="margin-top:8px;">Keep this answer close — you will use it to open the cultural section of your business presentation on Day 5.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ DAY 5 ═══════════════════════════════ -->
+<div class="day-panel" id="day-5">
+  <div class="day-header week1">
+    <div class="day-number">Week 1 · Unit 2 · First Impressions in Business</div>
+    <div class="day-title">Strategic Challenge + Presentation Preparation</div>
+    <div class="day-subtitle">Everything comes together — build your real business case</div>
+    <div class="day-time">⏱ 25–30 minutes</div>
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+
+  <div class="tip-box amber">Before you start: go back and read your Day 1 baseline answers. Then answer the question below.</div>
+
+  <div class="question-block">
+    <div class="question-label">Reflection</div>
+    <div class="question-text">Looking at your Day 1 answers — how different is your thinking now?</div>
+    <textarea id="d5_reflection" placeholder="Write your reflection..." rows="4"></textarea>
+  </div>
+
+  <hr class="section-rule">
+
+  <div class="section">
+    <div class="section-title">Part 1: Strategic Foundation</div>
+    <div class="section-time">⏱ 8 MINUTES</div>
+    <div class="section-intro">Answer these four questions concisely. They are the backbone of your presentation.</div>
+
+    <div class="question-block">
+      <div class="question-label">Your Unique Value Proposition</div>
+      <div class="question-hint">What distinguishes your product or service from global competitors?</div>
+      <textarea id="d5_uvp" placeholder="Write your unique value proposition..." rows="3"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label">Why Germany or Japan Would Choose YOU</div>
+      <div class="question-hint">Think about what these markets value: precision, reliability, long-term stability.</div>
+      <textarea id="d5_why_you" placeholder="Write your answer..." rows="3"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label">The Specific Problem You Are Solving</div>
+      <div class="question-hint">Define the real pain point in the current market that your partnership addresses.</div>
+      <textarea id="d5_problem" placeholder="Write your answer..." rows="3"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label">Your Core Strength for This Deal</div>
+      <textarea id="d5_strength" placeholder="Write your answer..." rows="3"></textarea>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+
+  <div class="section">
+    <div class="section-title">Part 2: Anticipate Tough Questions</div>
+    <div class="section-time">⏱ 5 MINUTES</div>
+    <div class="section-intro">Your professor will play a demanding international partner. Prepare short, direct answers — 1 to 2 sentences each.</div>
+
+    <div class="question-block">
+      <div class="question-label">Tough Question 1</div>
+      <div class="question-text">"Why should I partner with you and not someone else?"</div>
+      <textarea id="d5_tough1" placeholder="Your answer..." rows="2"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label">Tough Question 2</div>
+      <div class="question-text">"What happens if this doesn't work out?"</div>
+      <textarea id="d5_tough2" placeholder="Your answer..." rows="2"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label">Tough Question 3</div>
+      <div class="question-text">"What do you need from me to make this happen?"</div>
+      <textarea id="d5_tough3" placeholder="Your answer..." rows="2"></textarea>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+
+  <div class="section">
+    <div class="section-title">Part 3: Your Presentation — Build It, Don't Fill It</div>
+    <div class="section-time">⏱ 12–15 MINUTES</div>
+    <div class="tip-box">Do NOT write a script to read — write enough to speak naturally. Target: 4–5 minutes.</div>
+
+    <div style="margin: 16px 0;">
+      <div class="question-label" style="font-size:13px; font-weight:700; color:var(--green); margin-bottom:8px;">Select your target market:</div>
+      <div class="market-selector">
+        <div class="market-option" onclick="selectMarket(this,'DE')">🇩🇪 Germany</div>
+        <div class="market-option" onclick="selectMarket(this,'JP')">🇯🇵 Japan</div>
+      </div>
+      <input type="hidden" id="d5_market" value="">
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">Opening (45 seconds)</div>
+      <div class="question-hint">How will you introduce yourself in a way that is memorable and relevant to a German or Japanese partner?</div>
+      <textarea id="d5_opening" placeholder="Write your opening..." rows="3"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label">Current Situation (1 minute)</div>
+      <div class="question-hint">What does your operation look like right now? What challenge are you trying to solve by going international?</div>
+      <textarea id="d5_situation" placeholder="Write your current situation..." rows="3"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label">Your Solution (1.5 minutes)</div>
+      <div class="question-hint">If you partnered with them, what would you do together? What concrete benefit would THEY get? Use Second Conditional here.</div>
+      <textarea id="d5_solution" placeholder="Write your solution..." rows="4"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label">Cultural Respect (1 minute)</div>
+      <div class="question-hint">Based on Day 4: what is the ONE thing you would change about your approach for this specific culture?</div>
+      <textarea id="d5_culture" placeholder="Write your cultural adaptation..." rows="3"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label">Call to Action (30 seconds)</div>
+      <div class="question-hint">What is the specific next step you are proposing? Make it concrete and time-bound.</div>
+      <textarea id="d5_cta" placeholder="Write your call to action..." rows="2"></textarea>
+    </div>
+  </div>
+
+  <div class="ready-box">
+    <p><strong>Ready for class</strong></p>
+    <p>Bring all 5 days of preparation to class. Memorize your opening 45 seconds. Speak from your notes — don't read them. When asked a tough question, pause 2 seconds before answering.</p>
+    <p><strong>Your professor is not looking for perfection. They are looking for you — your ideas, your experience, your voice.</strong></p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ DAY 6 ═══════════════════════════════ -->
+<div class="day-panel" id="day-6">
+  <div class="day-header week2">
+    <div class="day-number">Week 2 · Unit 2 · First Impressions in Business</div>
+    <div class="day-title">Pre-Listening: Activate + Predict</div>
+    <div class="day-subtitle">Activate what you already believe — before you hear anything</div>
+    <div class="day-time">⏱ 20–25 minutes</div>
+  </div>
+
+  <div class="progress-bar" style="background: var(--teal-light)"><div class="progress-fill" style="width:20%; background: linear-gradient(90deg, var(--teal), #4caf82)"></div></div>
+
+  <div class="tip-box teal">This week you will prepare for a video called <strong>Mastering First Impressions — 7 Psychological Tips</strong>. In class, your professor will play it once. Your job over the next 5 days is to arrive ready to listen deeply, discuss confidently, and connect every tip to your real professional life.</div>
+
+  <div class="section">
+    <div class="section-title teal">Part 1: What Do You Already Believe?</div>
+    <div class="section-time">⏱ 10–12 MINUTES</div>
+    <div class="section-intro">The video covers 7 tips for making a great first impression. Before you watch, write what YOU think about each one. There are no right or wrong answers — this is your starting point.</div>
+
+    <div id="pre-listening-tips"></div>
+  </div>
+
+  <hr class="section-rule teal">
+
+  <div class="section">
+    <div class="section-title teal">Part 2: Your Prediction</div>
+    <div class="section-time">⏱ 8–10 MINUTES</div>
+    <div class="section-intro">Before watching, rank the 7 tips from most to least important for YOUR professional context in agribusiness.</div>
+
+    <div class="question-block">
+      <div class="question-label teal">My Ranking (1 = most important)</div>
+      <div class="ranking-grid" id="ranking-grid-d6"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label teal">Why is your #1 the most important for agribusiness?</div>
+      <textarea id="d6_rank1_why" placeholder="Explain your reasoning..." rows="3"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label teal">Why is your #2 in second place?</div>
+      <textarea id="d6_rank2_why" placeholder="Explain your reasoning..." rows="3"></textarea>
+    </div>
+
+    <div class="tip-box teal">You will revisit this ranking on Day 10. Keep it — the comparison will be interesting.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ DAY 7 ═══════════════════════════════ -->
+<div class="day-panel" id="day-7">
+  <div class="day-header week2">
+    <div class="day-number">Week 2 · Unit 2 · First Impressions in Business</div>
+    <div class="day-title">Vocabulary Deep Dive</div>
+    <div class="day-subtitle">The exact words and expressions you will hear in the video</div>
+    <div class="day-time">⏱ 20–25 minutes</div>
+  </div>
+
+  <div class="progress-bar" style="background: var(--teal-light)"><div class="progress-fill" style="width:40%; background: linear-gradient(90deg, var(--teal), #4caf82)"></div></div>
+
+  <div class="tip-box teal">Learning these words now means you can focus on the ideas during class — not on decoding individual words.</div>
+
+  <div class="section">
+    <div class="section-title teal">Part 1: Video Vocabulary in Context</div>
+    <div class="section-time">⏱ 14–16 MINUTES</div>
+    <div class="section-intro">For each word, read the definition and the exact phrase from the video. Then write 1–2 sentences connecting it to your professional reality in agribusiness.</div>
+
+    <div id="video-vocab-d7"></div>
+  </div>
+
+  <hr class="section-rule teal">
+
+  <div class="section">
+    <div class="section-title teal">Part 2: Your Top 4</div>
+    <div class="section-time">⏱ 5–6 MINUTES</div>
+    <div class="section-intro">Choose the 4 words that feel most relevant to your daily professional reality. Write them below and explain why.</div>
+    <div class="tip-box teal">Your professor will use your Top 4 directly in the discussion after the video. Be ready to use these words naturally in a sentence — not just define them.</div>
+    <textarea id="d7_top4" placeholder="Write your Top 4 and explain why each one matters to your work..." rows="6"></textarea>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ DAY 8 ═══════════════════════════════ -->
+<div class="day-panel" id="day-8">
+  <div class="day-header week2">
+    <div class="day-number">Week 2 · Unit 2 · First Impressions in Business</div>
+    <div class="day-title">Chunks for Discussion</div>
+    <div class="day-subtitle">Build the language tools to express your opinions confidently</div>
+    <div class="day-time">⏱ 20–25 minutes</div>
+  </div>
+
+  <div class="progress-bar" style="background: var(--teal-light)"><div class="progress-fill" style="width:60%; background: linear-gradient(90deg, var(--teal), #4caf82)"></div></div>
+
+  <div class="section">
+    <div class="section-title teal">Your Chunk Bank</div>
+    <div class="section-intro">These are the expressions you will use in class. Read them carefully. You will practice all of them below.</div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0;">
+      <div>
+        <div style="font-size:12px; font-weight:700; color:var(--teal); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">Ways to Express Personal Views</div>
+        <div class="chunk-grid teal">
+          <div class="chunk-item">It's important to...</div>
+          <div class="chunk-item">I believe it's rude to...</div>
+          <div class="chunk-item">I don't think it's OK to...</div>
+          <div class="chunk-item">It's not a good idea to...</div>
+          <div class="chunk-item">I think it depends on...</div>
+          <div class="chunk-item">I think it shows respect when...</div>
+          <div class="chunk-item">I don't like it when people...</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px; font-weight:700; color:var(--teal); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">Describing Reactions & Behavior</div>
+        <div class="chunk-grid teal">
+          <div class="chunk-item">In Brazil, we normally... but in [Germany/Japan] I would...</div>
+          <div class="chunk-item">If I met a person from... I would try to be more...</div>
+          <div class="chunk-item">I would avoid being too...</div>
+          <div class="chunk-item">If I had a... I would always pay attention to...</div>
+          <div class="chunk-item">I would change my approach depending on...</div>
+          <div class="chunk-item">I wouldn't act the same way if...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-rule teal">
+
+  <div class="section">
+    <div class="section-title teal">Part 1: Connect Chunks to the 7 Tips</div>
+    <div class="section-time">⏱ 12–14 MINUTES</div>
+    <div class="section-intro">For each tip, write one sentence using ANY chunk from the bank above. Connect it to your real professional context in agribusiness.</div>
+
+    <div id="chunks-tips-d8"></div>
+  </div>
+
+  <hr class="section-rule teal">
+
+  <div class="section">
+    <div class="section-title teal">Part 2: Your Strongest Chunk</div>
+    <div class="section-time">⏱ 5–6 MINUTES</div>
+    <div class="section-intro">Which expression feels most natural and useful for you? Write 3 original sentences using it — each one about a different professional situation.</div>
+
+    <div class="question-block">
+      <div class="question-label teal">My strongest chunk:</div>
+      <input type="text" id="d8_best_chunk" placeholder="Write the chunk you chose...">
+    </div>
+
+    <div class="question-block">
+      <div class="question-label teal">Sentence 1 — a meeting with a Brazilian partner:</div>
+      <textarea id="d8_sent1" placeholder="Write your sentence..." rows="2"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label teal">Sentence 2 — a meeting with an international buyer:</div>
+      <textarea id="d8_sent2" placeholder="Write your sentence..." rows="2"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label teal">Sentence 3 — a difficult situation at work:</div>
+      <textarea id="d8_sent3" placeholder="Write your sentence..." rows="2"></textarea>
+    </div>
+
+    <div class="tip-box teal">In class, your professor will ask you to use these chunks without looking at your notes. The more you write them today, the more naturally they will come out in conversation.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ DAY 9 ═══════════════════════════════ -->
+<div class="day-panel" id="day-9">
+  <div class="day-header week2">
+    <div class="day-number">Week 2 · Unit 2 · First Impressions in Business</div>
+    <div class="day-title">Discussion Preparation</div>
+    <div class="day-subtitle">Arrive with opinions already formed, not in blank</div>
+    <div class="day-time">⏱ 20–25 minutes</div>
+  </div>
+
+  <div class="progress-bar" style="background: var(--teal-light)"><div class="progress-fill" style="width:80%; background: linear-gradient(90deg, var(--teal), #4caf82)"></div></div>
+
+  <div class="tip-box teal">After the video in class, your professor will use sentences like the ones below to spark a discussion. Today you prepare your reactions — the goal is to react, not just agree.</div>
+
+  <div class="section">
+    <div class="section-title teal">Part 1: React to These Sentences</div>
+    <div class="section-time">⏱ 14–16 MINUTES</div>
+    <div class="section-intro">Read each sentence. Then answer the follow-up question in 3–4 sentences using the chunks from Day 8. Be honest — disagreement makes for better conversation.</div>
+
+    <div id="discussion-sentences-d9"></div>
+  </div>
+
+  <hr class="section-rule teal">
+
+  <div class="section">
+    <div class="section-title teal">Part 2: Your Strongest Reaction</div>
+    <div class="section-time">⏱ 4–6 MINUTES</div>
+    <div class="section-intro">Which of the 7 sentences above triggered the strongest reaction in you? Write your full response in 4–5 sentences. This is the answer you will defend most confidently in class.</div>
+
+    <div class="question-block">
+      <div class="question-label teal">My strongest reaction — sentence number:</div>
+      <input type="text" id="d9_strongest_num" placeholder="Number..." style="width:80px; margin-bottom:10px;">
+      <textarea id="d9_strongest" placeholder="Write your strongest reaction..." rows="6"></textarea>
+    </div>
+
+    <div class="tip-box teal">Your professor will not ask you to repeat your written answers. They will push you to go deeper, disagree with you, or ask for more examples. Prepare your thinking — not a script.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ DAY 10 ═══════════════════════════════ -->
+<div class="day-panel" id="day-10">
+  <div class="day-header week2">
+    <div class="day-number">Week 2 · Unit 2 · First Impressions in Business</div>
+    <div class="day-title">Personal Position + Class Preparation</div>
+    <div class="day-subtitle">Everything you worked on this week comes together here</div>
+    <div class="day-time">⏱ 25–30 minutes</div>
+  </div>
+
+  <div class="progress-bar" style="background: var(--teal-light)"><div class="progress-fill" style="width:100%; background: linear-gradient(90deg, var(--teal), #4caf82)"></div></div>
+
+  <div class="tip-box teal">Before you start: open Day 6 and read your original ranking and your top 2 explanations. Keep that in mind as you work through today.</div>
+
+  <div class="question-block">
+    <div class="question-label teal">Reflection</div>
+    <div class="question-text">Looking at your Day 6 ranking — what changed after 4 days of preparation? Did any tip move up or down in importance for you?</div>
+    <textarea id="d10_reflection" placeholder="Write your reflection..." rows="4"></textarea>
+  </div>
+
+  <hr class="section-rule teal">
+
+  <div class="section">
+    <div class="section-title teal">Part 1: The 7 Tips — Your Verdict</div>
+    <div class="section-time">⏱ 12–14 MINUTES</div>
+    <div class="section-intro">For each tip, write your honest verdict: how relevant is it to YOUR work in agribusiness, and why? Be specific — generic answers won't survive the class discussion.</div>
+
+    <div id="tips-verdict-d10"></div>
+  </div>
+
+  <hr class="section-rule teal">
+
+  <div class="section">
+    <div class="section-title teal">Part 2: Your Top 3 — Defend Your Position</div>
+    <div class="section-time">⏱ 8–10 MINUTES</div>
+    <div class="section-intro">Choose the 3 tips you believe matter most in agribusiness. Your professor will challenge your choices — so build a real argument, not just a preference.</div>
+
+    <div class="question-block">
+      <div class="question-label teal">My Top 3 tips for agribusiness (in order):</div>
+      <textarea id="d10_top3" placeholder="Write your Top 3 in order..." rows="3"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label teal">Why is your #1 the most important? Use at least one specific example from your work.</div>
+      <textarea id="d10_why1" placeholder="Write your argument..." rows="4"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label teal">Why does your #2 matter more than the others you left out?</div>
+      <textarea id="d10_why2" placeholder="Write your argument..." rows="3"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label teal">What would you say to someone who disagreed with your #3 choice?</div>
+      <textarea id="d10_why3" placeholder="Write your argument..." rows="3"></textarea>
+    </div>
+  </div>
+
+  <hr class="section-rule teal">
+
+  <div class="section">
+    <div class="section-title teal">Part 3: One Real Situation</div>
+    <div class="section-time">⏱ 4–5 MINUTES</div>
+    <div class="section-intro">Think of a real first meeting coming up in the next month. Choose 2 tips from the video and explain exactly how you would apply them in that specific situation.</div>
+
+    <div class="question-block">
+      <div class="question-label teal">The meeting I'm thinking of:</div>
+      <textarea id="d10_meeting" placeholder="Describe the meeting..." rows="2"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label teal">Tip 1 I would apply — and exactly how:</div>
+      <textarea id="d10_tip1_apply" placeholder="Write your answer..." rows="3"></textarea>
+    </div>
+    <div class="question-block">
+      <div class="question-label teal">Tip 2 I would apply — and exactly how:</div>
+      <textarea id="d10_tip2_apply" placeholder="Write your answer..." rows="3"></textarea>
+    </div>
+  </div>
+
+  <div class="ready-box" style="background: var(--teal)">
+    <p><strong>Bring all 10 days of preparation to class.</strong></p>
+    <p>Your professor will not ask you to repeat what you wrote — they will ask you to go further. Come with opinions, not just answers.</p>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <button class="toolbar-btn save" onclick="saveAll()">💾 Save</button>
+  <button class="toolbar-btn download" onclick="downloadAnswers()">⬇️ Download</button>
+  <button class="toolbar-btn clear" onclick="clearAll()">🗑 Clear all</button>
+</div>
+<div class="save-indicator" id="saveIndicator">✓ Saved</div>
+
+<script>
+const STORAGE_KEY = 'talkit_unit2_firstimpressions';
+let currentDay = 1;
+let currentWeek = 1;
+
+// ── DYNAMIC CONTENT ──────────────────────────────────────────────────────
+
+const vocabItems = [
+  {word: 'First impression', example: 'The opinion you form about someone in the first seconds of meeting them.'},
+  {word: 'Confidence', example: 'A feeling of trust in your own abilities.'},
+  {word: 'Body language', example: 'Communication through posture, gestures, and facial expressions.'},
+  {word: 'Eye contact', example: 'The action of looking directly into someone\'s eyes.'},
+  {word: 'Approachable', example: 'Friendly and easy to talk to.'},
+  {word: 'Professional', example: 'Relating to or belonging to a profession; showing a high level of skill.'},
+  {word: 'Trustworthy', example: 'Deserving of trust or confidence; reliable.'},
+  {word: 'Enthusiastic', example: 'Showing strong excitement or interest about something.'},
+  {word: 'Business development', example: 'Activities to grow and improve a business.'},
+  {word: 'Client meeting', example: 'A formal or informal meeting with a customer.'},
+  {word: 'Partnership', example: 'A relationship in which two parties cooperate.'},
+  {word: 'Company values', example: 'The principles and beliefs that guide a company\'s behavior.'},
+  {word: 'International client', example: 'A customer from another country.'},
+];
+
+const psStarters = [
+  "1. I'm currently...",
+  "2. We're dealing with...",
+  "3. The main issue in my job is...",
+  "4. Right now, I typically...",
+  "5. In my company, we focus on...",
+];
+
+const scStarters = [
+  {starter: "1. If I were more confident in English, I would...", id: "d3_sc1"},
+  {starter: "2. If I had more time to prepare for international meetings, I would...", id: "d3_sc2"},
+  {starter: "3. If we could invest in language training for our team, I would...", id: "d3_sc3"},
+  {starter: "4. If someone gave me honest feedback about my communication style, I would...", id: "d3_sc4"},
+  {starter: "5. If I could change one thing about how I present my company to foreign partners, I would...", id: "d3_sc5"},
+];
+
+const chunkGroups = [
+  {
+    title: "Group 1 — Current Situation (Present Simple)",
+    items: [
+      {text: "I am currently working as a _______ in the agribusiness sector.", id: "d4_c1"},
+      {text: "We are dealing with _______ when working internationally.", id: "d4_c2"},
+      {text: "The main challenge is _______ when meeting clients from different cultures.", id: "d4_c3"},
+      {text: "Right now, our company focuses on _______.", id: "d4_c4"},
+    ]
+  },
+  {
+    title: "Group 2 — Proposing Alternatives (Second Conditional)",
+    items: [
+      {text: "If I were in a meeting with an important German client, I would _______.", id: "d4_c5"},
+      {text: "If we had more time to prepare, we would _______.", id: "d4_c6"},
+      {text: "If I could change my approach to be more _______, I would _______.", id: "d4_c7"},
+      {text: "If someone gave me feedback about my first impression, I would _______.", id: "d4_c8"},
+    ]
+  },
+  {
+    title: "Group 3 — Cultural Contrast (Present + Conditional)",
+    items: [
+      {text: "In Brazil, we normally _______, but if I were in Japan, I would _______.", id: "d4_c9"},
+      {text: "If I met a person from Germany, I would try to be more _______.", id: "d4_c10"},
+      {text: "I typically approach meetings by _______, but if I were in Japan, I would be more _______.", id: "d4_c11"},
+      {text: "In my experience, people notice _______ during first impressions. If I improved this, they would _______.", id: "d4_c12"},
+    ]
+  },
+];
+
+const preTips = [
+  {num:1, title:"Be enthusiastic", q:"How important is enthusiasm when meeting someone new in agribusiness? Is it always appropriate, or can it feel out of place?"},
+  {num:2, title:"Show respect", q:"What does respect look like in your professional context? Give a concrete example of someone who showed — or failed to show — respect in a first meeting."},
+  {num:3, title:"Be open to new ideas", q:"How easy is it for you to be genuinely open in a first meeting? Has it ever paid off professionally?"},
+  {num:4, title:"Be positive", q:"There's a difference between being positive and being unrealistic. Where is that line for you in a business context?"},
+  {num:5, title:"Realize it's not all about you", q:"Think of someone you've met who made it all about themselves. How did it affect your impression of them?"},
+  {num:6, title:"Try to avoid the bad days", q:"If something bad happens before an important meeting, what do you usually do? Push through or reschedule?"},
+  {num:7, title:"Pay attention to your body language", q:"What aspect of your own body language do you think has the most impact in a first meeting?"},
+];
+
+const videoVocab = [
+  {word:"First impression", def:"The opinion you form about someone in the first seconds of meeting them.", quote:'"people\'s first impressions are made within seven seconds of meeting someone new"'},
+  {word:"Enthusiastic / Enthusiasm", def:"Showing strong excitement or interest about something.", quote:'"people often see passion as a charming sign of strength and inspiration"'},
+  {word:"Approachable", def:"Friendly and easy to talk to.", quote:'"smiling will make you seem approachable and easy-going"'},
+  {word:"Easy-going", def:"Relaxed, calm, and not easily upset or stressed.", quote:'"smiling or incorporating friendly humor will make you seem approachable and easy-going"'},
+  {word:"Manners", def:"Polite ways of behaving that show respect for others.", quote:'"be polite and show manners with please and thank you"'},
+  {word:"Reciprocate", def:"To respond to an action by doing something similar in return.", quote:'"people want to feel respected before they reciprocate"'},
+  {word:"Be open to new ideas", def:"Ready and willing to consider or try something different.", quote:'"openness is an inviting trait so give new experiences a shot"'},
+  {word:"Willing", def:"Ready and happy to do something or agree to something.", quote:'"let people know that you\'re willing to try something new with them"'},
+  {word:"Resilience", def:"The ability to recover quickly from difficulties and stay strong.", quote:'"people will be drawn to your resilience"'},
+  {word:"Self-centered / Self-centeredness", def:"Only thinking about yourself; not considering others.", quote:'"there\'s a difference between confidence and self-centeredness"'},
+  {word:"Conceited", def:"Excessively proud of yourself in a way that annoys others.", quote:'"to avoid seeming conceited, focus on larger concerns in the world"'},
+  {word:"Humility", def:"A modest view of your own importance — not arrogant.", quote:'"people also like to see a degree of humility"'},
+  {word:"Wise judgment", def:"The ability to make good decisions based on experience.", quote:'"it will show wise judgment on your part"'},
+  {word:"Body language", def:"The way you communicate through posture, gestures, and facial expressions.", quote:'"body language has four times the influence on first impressions than words"'},
+  {word:"Posture", def:"The way you hold your body when standing or sitting.", quote:'"make sure your posture is good, make strong eye contact and lean forward"'},
+];
+
+const chunkTips = [
+  {num:1, title:"Be enthusiastic", hint:"Use a chunk to say how you feel about showing enthusiasm in agribusiness meetings."},
+  {num:2, title:"Show respect", hint:"Use a chunk to describe what respectful behavior looks like in your professional context."},
+  {num:3, title:"Be open to new ideas", hint:"Use a chunk to express your view on openness in business negotiations."},
+  {num:4, title:"Be positive", hint:"Use a chunk to explain how you balance positivity with realism at work."},
+  {num:5, title:"Realize it's not all about you", hint:"Use a chunk to describe how you handle conversations that become too one-sided."},
+  {num:6, title:"Try to avoid the bad days", hint:"Use a chunk to say how you manage personal problems when a professional meeting can't be postponed."},
+  {num:7, title:"Pay attention to your body language", hint:"Use a chunk to explain what aspect of body language matters most in YOUR meetings."},
+];
+
+const discussionSentences = [
+  {
+    sent: '"If I met someone from a very different culture, I would try to be more approachable."',
+    q: "And you? How would you act if you were in a situation like that? Give a specific example from your work in agribusiness.",
+    vocab: "approachable, easy-going, open to new ideas",
+    id: "d9_s1"
+  },
+  {
+    sent: '"I would avoid being too self-centered during a group discussion."',
+    q: "What kind of attitude would you try to avoid if you were in a multicultural team? Have you ever seen self-centeredness damage a professional relationship?",
+    vocab: "self-centered, self-centeredness, conceited",
+    id: "d9_s2"
+  },
+  {
+    sent: '"I would try to engage in the meeting, even if I wasn\'t 100% confident."',
+    q: "If you felt unsure or nervous during an important meeting, what would you do to stay involved? Does this happen to you in English?",
+    vocab: "willing, engage, resilience",
+    id: "d9_s3"
+  },
+  {
+    sent: '"Before discussing an important topic, I would try to set up a time that works for both of us."',
+    q: "If someone was always busy or hard to reach, how would you find the right moment to talk to them? How does this work in your company?",
+    vocab: "wise judgment, manners, reciprocate",
+    id: "d9_s4"
+  },
+  {
+    sent: '"I would change my behavior depending on whether the person is easy-going or more formal."',
+    q: "If you met someone with a very different communication style from yours, how would you adapt? Give a real example.",
+    vocab: "easy-going, body language, posture",
+    id: "d9_s5"
+  },
+  {
+    sent: '"If someone seemed cold at first, I would still try to be friendly and willing to listen."',
+    q: "Would you do the same? Why or why not? Have you ever turned around a cold first impression — yours or someone else's?",
+    vocab: "willing, humility, resilience",
+    id: "d9_s6"
+  },
+  {
+    sent: '"I wouldn\'t act the same way if someone refused to be open to new ideas."',
+    q: "What would you do if a key partner or client was completely closed to your suggestions? How would that affect your professional relationship?",
+    vocab: "open to new ideas, wise judgment, self-centeredness",
+    id: "d9_s7"
+  },
+];
+
+const tipVerdicts = [
+  {num:1, title:"Be Enthusiastic", quote:'"people often see passion as a charming sign of strength and inspiration"', id:"d10_v1"},
+  {num:2, title:"Show Respect", quote:'"don\'t just focus your manners towards the person you meet — make sure to treat everyone around you well"', id:"d10_v2"},
+  {num:3, title:"Be Open to New Ideas", quote:'"engaging in new activity together is a great conversation starter and can create a sense of closeness"', id:"d10_v3"},
+  {num:4, title:"Be Positive", quote:'"having a positive outlook despite any hardships makes you seem dependable"', id:"d10_v4"},
+  {num:5, title:"Realize It's Not All About You", quote:'"there\'s a difference between confidence and self-centeredness"', id:"d10_v5"},
+  {num:6, title:"Try to Avoid the Bad Days", quote:'"let them know your time with them is valuable to you"', id:"d10_v6"},
+  {num:7, title:"Pay Attention to Your Body Language", quote:'"body language has four times the influence on first impressions than the words that come out of your mouth"', id:"d10_v7"},
+];
+
+// ── RENDER ───────────────────────────────────────────────────────────────
+
+function renderDay2() {
+  const cont = document.getElementById('vocab-items-d2');
+  if (!cont) return;
+  vocabItems.forEach((v, i) => {
+    cont.innerHTML += `
+      <div class="question-block">
+        <div class="question-label">${v.word}</div>
+        <div class="question-hint">${v.example}</div>
+        <textarea id="d2_vocab_${i}" placeholder="Write 1–2 sentences connecting this to your real job..." rows="2"></textarea>
+      </div>`;
+  });
+  const psCont = document.getElementById('present-simple-starters');
+  if (!psCont) return;
+  psStarters.forEach((s, i) => {
+    psCont.innerHTML += `
+      <div class="question-block">
+        <div class="question-label" style="color:var(--navy)">${s}</div>
+        <textarea id="d2_ps_${i}" placeholder="Complete this sentence about your professional reality..." rows="2"></textarea>
+      </div>`;
+  });
+}
+
+function renderDay3() {
+  const cont = document.getElementById('second-conditional-sentences');
+  if (!cont) return;
+  scStarters.forEach(s => {
+    cont.innerHTML += `
+      <div class="question-block">
+        <div class="question-label">${s.starter.split('.')[0]}.</div>
+        <div class="fill-sentence">${s.starter}</div>
+        <textarea id="${s.id}" placeholder="Complete this sentence with your real professional situation..." rows="2"></textarea>
+      </div>`;
+  });
+}
+
+function renderDay4() {
+  const cont = document.getElementById('chunk-practice-d4');
+  if (!cont) return;
+  chunkGroups.forEach(g => {
+    cont.innerHTML += `<div style="font-size:13px; font-weight:700; color:var(--green); margin:16px 0 8px; text-transform:uppercase; letter-spacing:0.4px;">${g.title}</div>`;
+    g.items.forEach(item => {
+      cont.innerHTML += `
+        <div class="question-block">
+          <div class="fill-sentence" style="font-size:14px; color:var(--text);">${item.text}</div>
+          <textarea id="${item.id}" placeholder="Complete with your real professional context..." rows="2"></textarea>
+        </div>`;
+    });
+  });
+}
+
+function renderDay6() {
+  const cont = document.getElementById('pre-listening-tips');
+  if (!cont) return;
+  preTips.forEach(t => {
+    cont.innerHTML += `
+      <div class="tip-card" style="border-color:var(--teal-light)">
+        <div class="tip-card-header">
+          <span class="tip-number">Tip ${t.num}</span>
+          <span class="tip-title">${t.title}</span>
+        </div>
+        <div class="tip-card-body">
+          <div class="question-text">${t.q}</div>
+          <textarea id="d6_tip${t.num}" placeholder="Write your thoughts before watching..." rows="3" class="teal"></textarea>
+        </div>
+      </div>`;
+  });
+
+  const grid = document.getElementById('ranking-grid-d6');
+  if (!grid) return;
+  for (let i = 1; i <= 7; i++) {
+    grid.innerHTML += `
+      <div class="rank-num">${i}</div>
+      <input type="text" id="d6_rank_${i}" placeholder="Tip name or number...">`;
+  }
+}
+
+function renderDay7() {
+  const cont = document.getElementById('video-vocab-d7');
+  if (!cont) return;
+  videoVocab.forEach((v, i) => {
+    cont.innerHTML += `
+      <div class="vocab-card" style="margin-bottom:12px;">
+        <div class="vocab-card-header teal">${v.word}</div>
+        <div class="vocab-card-body">
+          <div class="vocab-def">${v.def}</div>
+          <div class="vocab-quote">${v.quote}</div>
+          <textarea id="d7_vocab_${i}" placeholder="Write 1–2 sentences connecting this to your professional reality in agribusiness..." rows="2" class="teal"></textarea>
+        </div>
+      </div>`;
+  });
+}
+
+function renderDay8() {
+  const cont = document.getElementById('chunks-tips-d8');
+  if (!cont) return;
+  chunkTips.forEach(t => {
+    cont.innerHTML += `
+      <div class="question-block">
+        <div class="question-label teal">Tip ${t.num}: ${t.title}</div>
+        <div class="question-hint">${t.hint}</div>
+        <textarea id="d8_tip${t.num}" placeholder="Write your sentence using a chunk from the bank..." rows="2" class="teal"></textarea>
+      </div>`;
+  });
+}
+
+function renderDay9() {
+  const cont = document.getElementById('discussion-sentences-d9');
+  if (!cont) return;
+  discussionSentences.forEach((s, i) => {
+    cont.innerHTML += `
+      <div class="sentence-block">
+        <div class="sentence-quote">${s.sent}</div>
+        <div class="sentence-body">
+          <div class="question-text">${s.q}</div>
+          <div class="tip-vocab-hint">Vocabulary to use: ${s.vocab}</div>
+          <textarea id="${s.id}" placeholder="Write your reaction in 3–4 sentences..." rows="4" class="teal" style="margin-top:10px;"></textarea>
+        </div>
+      </div>`;
+  });
+}
+
+function renderDay10() {
+  const cont = document.getElementById('tips-verdict-d10');
+  if (!cont) return;
+  tipVerdicts.forEach(t => {
+    cont.innerHTML += `
+      <div class="tip-card" style="border-color:var(--teal-light)">
+        <div class="tip-card-header">
+          <span class="tip-number">Tip ${t.num}</span>
+          <span class="tip-title">${t.title}</span>
+        </div>
+        <div class="tip-card-body">
+          <div class="tip-quote">${t.quote}</div>
+          <div class="question-hint">Your verdict — how relevant is this to your professional context? Why?</div>
+          <textarea id="${t.id}" placeholder="Write your honest verdict..." rows="3" class="teal" style="margin-top:8px;"></textarea>
+        </div>
+      </div>`;
+  });
+}
+
+// ── NAVIGATION ───────────────────────────────────────────────────────────
+
+function switchDay(day) {
+  document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('day-' + day).classList.add('active');
+  document.querySelectorAll('.tab-btn')[day - 1].classList.add('active');
+  currentDay = day;
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  loadAll();
+}
+
+function switchWeek(week) {
+  document.querySelectorAll('.week-tab').forEach((t, i) => {
+    t.classList.toggle('active', i === week - 1);
+  });
+  currentWeek = week;
+  switchDay(week === 1 ? 1 : 6);
+}
+
+function selectMarket(el, val) {
+  document.querySelectorAll('.market-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('d5_market').value = val;
+  saveAll();
+}
+
+// ── STORAGE ──────────────────────────────────────────────────────────────
+
+function getAllInputIds() {
+  const inputs = document.querySelectorAll('textarea, input[type="text"], input[type="hidden"]');
+  return Array.from(inputs).map(el => el.id).filter(Boolean);
+}
+
+function saveAll() {
+  const data = {};
+  getAllInputIds().forEach(id => {
+    const el = document.getElementById(id);
+    if (el) data[id] = el.value;
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  const ind = document.getElementById('saveIndicator');
+  ind.classList.add('show');
+  setTimeout(() => ind.classList.remove('show'), 2000);
+}
+
+function loadAll() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return;
+  const data = JSON.parse(raw);
+  Object.entries(data).forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.value = val;
+      if (id === 'd5_market' && val) {
+        document.querySelectorAll('.market-option').forEach(o => {
+          if (o.onclick.toString().includes(val)) o.classList.add('selected');
+        });
+      }
+    }
+  });
+}
+
+function clearAll() {
+  if (!confirm('Are you sure you want to clear ALL your answers? This cannot be undone.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  document.querySelectorAll('textarea, input[type="text"]').forEach(el => el.value = '');
+  document.querySelectorAll('.market-option').forEach(o => o.classList.remove('selected'));
+  document.getElementById('d5_market').value = '';
+}
+
+// ── DOWNLOAD ─────────────────────────────────────────────────────────────
+
+function downloadAnswers() {
+  saveAll();
+  const raw = localStorage.getItem(STORAGE_KEY);
+  const data = raw ? JSON.parse(raw) : {};
+
+  const dayTitles = [
+    'Day 1 — Activate Knowledge + Diagnostic',
+    'Day 2 — Vocabulary Building + Present Simple',
+    'Day 3 — Second Conditional + Transformation Practice',
+    'Day 4 — Cultural Awareness + Chunk Practice',
+    'Day 5 — Strategic Challenge + Presentation Preparation',
+    'Day 6 — Pre-Listening: Activate + Predict',
+    'Day 7 — Vocabulary Deep Dive',
+    'Day 8 — Chunks for Discussion',
+    'Day 9 — Discussion Preparation',
+    'Day 10 — Personal Position + Class Preparation',
+  ];
+
+  let html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <title>Unit 2 — My Answers</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 24px; color: #1a1a1a; }
+    h1 { color: #1a5c38; font-size: 22px; border-bottom: 2px solid #1a5c38; padding-bottom: 8px; }
+    h2 { color: #1a5c38; font-size: 16px; margin-top: 28px; }
+    h3 { color: #666; font-size: 13px; margin-top: 16px; font-weight: 600; }
+    .answer { background: #f5f5f5; border-left: 3px solid #1a5c38; padding: 10px 14px; margin: 6px 0; font-size: 14px; line-height: 1.6; white-space: pre-wrap; min-height: 24px; }
+    .page-break { page-break-after: always; margin-bottom: 40px; }
+    .header { color: #666; font-size: 12px; margin-bottom: 4px; }
+  </style></head><body>`;
+
+  html += `<h1>Unit 2 — First Impressions in Business</h1>
+  <p style="color:#666; font-size:13px;">TalkItEasy Agro English Program · Downloaded on ${new Date().toLocaleDateString()}</p>`;
+
+  const dayFields = {
+    1: [
+      ['Question 1 — Language barrier moment', 'd1_q1'],
+      ['Question 2 — First impression in your role', 'd1_q2'],
+      ['Question 3 — One thing you would change', 'd1_q3'],
+      ['Baseline A — Current approach (Present Simple)', 'd1_baseline_a'],
+      ['Baseline B — What you would change (Second Conditional)', 'd1_baseline_b'],
+    ],
+    2: [
+      ...vocabItems.map((v, i) => [`Vocabulary: ${v.word}`, `d2_vocab_${i}`]),
+      ['Top 3 vocabulary items — and why', 'd2_top3'],
+      ...psStarters.map((s, i) => [s, `d2_ps_${i}`]),
+    ],
+    3: [
+      ['Error 1 — Correction', 'd3_err1'],
+      ['Error 2 — Correction', 'd3_err2'],
+      ['Error 3 — Correction', 'd3_err3'],
+      ...scStarters.map(s => [s.starter, s.id]),
+    ],
+    4: [
+      ['Prediction — Germany', 'd4_pred_de'],
+      ['Prediction — Japan', 'd4_pred_jp'],
+      ['Prediction — Brazil', 'd4_pred_br'],
+      ['What surprised you most', 'd4_surprise'],
+      ...chunkGroups.flatMap(g => g.items.map(item => [item.text, item.id])),
+      ['Your One Change', 'd4_one_change'],
+    ],
+    5: [
+      ['Reflection — How is your thinking different now?', 'd5_reflection'],
+      ['Unique Value Proposition', 'd5_uvp'],
+      ['Why Germany or Japan would choose you', 'd5_why_you'],
+      ['The specific problem you are solving', 'd5_problem'],
+      ['Your core strength', 'd5_strength'],
+      ['Tough Question 1 — Why partner with you?', 'd5_tough1'],
+      ['Tough Question 2 — What if it doesn\'t work?', 'd5_tough2'],
+      ['Tough Question 3 — What do you need?', 'd5_tough3'],
+      ['Target market', 'd5_market'],
+      ['Opening (45 seconds)', 'd5_opening'],
+      ['Current Situation (1 minute)', 'd5_situation'],
+      ['Your Solution (1.5 minutes)', 'd5_solution'],
+      ['Cultural Respect (1 minute)', 'd5_culture'],
+      ['Call to Action (30 seconds)', 'd5_cta'],
+    ],
+    6: [
+      ...preTips.map(t => [`Tip ${t.num}: ${t.title}`, `d6_tip${t.num}`]),
+      ...Array.from({length:7}, (_,i) => [`Ranking #${i+1}`, `d6_rank_${i+1}`]),
+      ['Why #1 is most important', 'd6_rank1_why'],
+      ['Why #2 is in second place', 'd6_rank2_why'],
+    ],
+    7: [
+      ...videoVocab.map((v, i) => [`Vocabulary: ${v.word}`, `d7_vocab_${i}`]),
+      ['Top 4 words — and why', 'd7_top4'],
+    ],
+    8: [
+      ...chunkTips.map(t => [`Chunk for Tip ${t.num}: ${t.title}`, `d8_tip${t.num}`]),
+      ['My strongest chunk', 'd8_best_chunk'],
+      ['Sentence 1 — Brazilian partner', 'd8_sent1'],
+      ['Sentence 2 — International buyer', 'd8_sent2'],
+      ['Sentence 3 — Difficult situation', 'd8_sent3'],
+    ],
+    9: [
+      ...discussionSentences.map((s, i) => [`Reaction to Sentence ${i+1}`, s.id]),
+      ['My strongest reaction — sentence number', 'd9_strongest_num'],
+      ['My strongest reaction — full response', 'd9_strongest'],
+    ],
+    10: [
+      ['Reflection — What changed from Day 6?', 'd10_reflection'],
+      ...tipVerdicts.map(t => [`Verdict: Tip ${t.num} — ${t.title}`, t.id]),
+      ['My Top 3 tips', 'd10_top3'],
+      ['Why #1 is most important', 'd10_why1'],
+      ['Why #2 matters more', 'd10_why2'],
+      ['Defending #3', 'd10_why3'],
+      ['The real meeting I\'m thinking of', 'd10_meeting'],
+      ['Tip 1 I would apply — and how', 'd10_tip1_apply'],
+      ['Tip 2 I would apply — and how', 'd10_tip2_apply'],
+    ],
+  };
+
+  for (let d = 1; d <= 10; d++) {
+    html += `<div class="${d < 10 ? 'page-break' : ''}"><h2>${dayTitles[d-1]}</h2>`;
+    (dayFields[d] || []).forEach(([label, id]) => {
+      const val = data[id] || '';
+      html += `<h3>${label}</h3><div class="answer">${val || '<em style="color:#aaa">No answer written</em>'}</div>`;
+    });
+    html += '</div>';
+  }
+
+  html += '</body></html>';
+
+  const blob = new Blob([html], {type: 'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Unit2_FirstImpressions_MyAnswers.html';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── AUTO-SAVE ─────────────────────────────────────────────────────────────
+
+document.addEventListener('input', () => {
+  clearTimeout(window._saveTimer);
+  window._saveTimer = setTimeout(saveAll, 1000);
+});
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+
+renderDay2();
+renderDay3();
+renderDay4();
+renderDay6();
+renderDay7();
+renderDay8();
+renderDay9();
+renderDay10();
+loadAll();
+</script>
+</body>
+</html>
