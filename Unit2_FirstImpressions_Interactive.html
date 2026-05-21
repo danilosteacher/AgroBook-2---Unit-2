@@ -138,6 +138,7 @@ body {
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s;
+  min-height: 44px;
 }
 .tab-btn:hover {
   border-color: var(--green);
@@ -689,6 +690,371 @@ input[type="text"]:focus {
 .ready-box p:last-child { margin-bottom: 0; }
 .ready-box strong { color: var(--white); }
 
+/* YOUTUBE BUTTON */
+.yt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #ff0000;
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 22px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 2px 12px rgba(255,0,0,0.25);
+  margin: 16px 0;
+}
+.yt-btn:hover {
+  background: #cc0000;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(255,0,0,0.35);
+}
+.yt-btn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* CHECKER */
+.checker-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.check-btn {
+  background: var(--green);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.check-btn:hover { background: var(--green-dark); }
+.check-btn.teal { background: var(--teal); }
+.check-btn.teal:hover { background: #123333; }
+.check-result {
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: none;
+  flex: 1;
+}
+.check-result.correct {
+  background: #e8f5ee;
+  color: var(--green);
+  border: 1px solid var(--green-mid);
+}
+.check-result.wrong {
+  background: #fdecea;
+  color: #c0392b;
+  border: 1px solid #f5c6c2;
+}
+
+/* CHECKTUDO */
+.check-all-wrapper {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-top: 20px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.check-all-btn {
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.check-all-btn:hover { background: #0f1f45; }
+.check-score {
+  margin-top: 12px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  display: none;
+}
+
+/* ERROR SENTENCE HIGHLIGHT */
+.error-sentence {
+  font-size: 14px;
+  font-style: italic;
+  color: #c0392b;
+  background: #fdecea;
+  border: 1px solid #f5c6c2;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: 10px;
+}
+
+/* ── FLASHCARD ──────────────────────────────────────── */
+.fc-shell {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow);
+}
+.fc-shell-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  color: var(--green);
+}
+.fc-shell-title.teal { color: var(--teal); }
+.fc-shell-sub {
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 16px;
+}
+.fc-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.fc-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.fc-dot.active {
+  background: var(--green);
+  transform: scale(1.4);
+}
+.fc-dot.active.teal-dot { background: var(--teal); }
+.fc-dot.done { background: var(--green-mid); opacity: 0.5; }
+.fc-dot.done.teal-dot { background: var(--teal-light); opacity: 0.7; }
+.fc-counter {
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.fc-card {
+  border-radius: var(--radius);
+  min-height: 220px;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  overflow: hidden;
+  border: 1.5px solid var(--green-mid);
+}
+.fc-card.teal-card { border-color: var(--teal-light); }
+.fc-front, .fc-back {
+  padding: 22px 24px;
+  min-height: 220px;
+}
+.fc-back { display: none; }
+.fc-back.visible { display: block; }
+.fc-front.hidden { display: none; }
+.fc-flip-hint {
+  position: absolute;
+  top: 12px; right: 14px;
+  font-size: 10px;
+  color: var(--muted);
+  font-style: italic;
+  opacity: 0.7;
+}
+.fc-step {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+.fc-word {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  color: var(--green);
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.fc-word.teal { color: var(--teal); }
+.fc-ipa {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 16px;
+}
+.fc-audio-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.fc-abtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--green);
+  color: var(--white);
+  border: none;
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.fc-abtn.teal-btn { background: var(--teal); }
+.fc-abtn:hover { opacity: 0.85; }
+.fc-abtn.playing { opacity: 0.6; pointer-events: none; }
+.fc-spd {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.fc-spd.active {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-light);
+}
+.fc-spd.active.teal-spd {
+  border-color: var(--teal);
+  color: var(--teal);
+  background: var(--teal-light);
+}
+.fc-back-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.fc-back-label.teal { color: var(--teal); }
+.fc-translation {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  color: var(--green);
+  margin-bottom: 12px;
+}
+.fc-translation.teal { color: var(--teal); }
+.fc-ex-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 6px;
+  margin-top: 14px;
+}
+.fc-example {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--text);
+  border-left: 3px solid var(--green);
+  padding-left: 10px;
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+.fc-example.teal { border-left-color: var(--teal); }
+.fc-example-pt {
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+  padding-left: 13px;
+  margin-bottom: 12px;
+}
+.fc-why {
+  font-size: 11px;
+  background: var(--green-light);
+  color: var(--green);
+  border-radius: 6px;
+  padding: 7px 10px;
+  line-height: 1.5;
+  margin-top: 4px;
+}
+.fc-why.teal { background: var(--teal-light); color: var(--teal); }
+.fc-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+.fc-nav-btn {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 7px 18px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.fc-nav-btn:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+.fc-nav-btn.teal-nav:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+/* ── YOUTUBE PLACEHOLDER ─────────────────────────────── */
+.yt-placeholder {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #888;
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 11px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: not-allowed;
+  margin: 16px 0;
+  opacity: 0.65;
+}
+.yt-placeholder svg { width: 18px; height: 18px; flex-shrink: 0; }
+.yt-placeholder-note {
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: -8px;
+  margin-bottom: 16px;
+}
+
 /* RESPONSIVE */
 @media (max-width: 600px) {
   .site-header { padding: 0 16px; }
@@ -749,6 +1115,16 @@ input[type="text"]:focus {
   <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
 
   <div class="tip-box">Today's goal is to activate your existing knowledge about first impressions and establish a personal baseline. Write your authentic ideas. This is YOUR starting point, and you will return to it on Day 5.</div>
+
+  <div class="section">
+    <div class="section-title">▶ Watch Before You Start</div>
+    <div class="section-intro">Watch this short intro before answering the questions below.</div>
+    <div class="yt-placeholder">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      ▶ Day 1 — Introduction Video [coming soon]
+    </div>
+    <p class="yt-placeholder-note">Link will be added when the video is ready.</p>
+  </div>
 
   <div class="section">
     <div class="section-title">Part 1: Hook Questions</div>
@@ -813,8 +1189,12 @@ input[type="text"]:focus {
   <div class="section">
     <div class="section-title">Part 1: Vocabulary in Context</div>
     <div class="section-time">⏱ 12–15 MINUTES</div>
-    <div class="section-intro">For each item, write 1–2 sentences connecting it to your actual job, company, or daily routine. Use the contextual example as a reference, not a template.</div>
+    <div class="section-intro">Study each word using the flashcard below. Tap the card to reveal the translation and example. Use the audio button to hear the correct pronunciation. Then write your own sentence in the exercise below.</div>
 
+    <div id="fc-d2-mount"></div>
+
+    <div class="section-title" style="margin-top:24px;">Your Sentences</div>
+    <div class="section-intro">For each word, write 1–2 sentences connecting it to your actual job, company, or daily routine.</div>
     <div id="vocab-items-d2"></div>
   </div>
 
@@ -853,29 +1233,56 @@ input[type="text"]:focus {
   <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
 
   <div class="section">
+    <div class="section-title">▶ Watch Before You Start</div>
+    <div class="section-intro">Watch the grammar explanation video before working through the exercises below.</div>
+    <div class="yt-placeholder">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      ▶ Day 3 — Second Conditional Explained [coming soon]
+    </div>
+    <p class="yt-placeholder-note">Link will be added when the video is ready.</p>
+  </div>
+
+  <div class="section">
     <div class="section-title">Part 1: Spot and Fix the Errors</div>
     <div class="section-time">⏱ 5–7 MINUTES</div>
     <div class="section-intro">Before learning the structure, try to identify what's wrong in each sentence. Trust your instinct — you already know more than you think.</div>
 
     <div class="question-block">
       <div class="question-label">Sentence 1</div>
-      <div class="question-text" style="font-style:italic; color: #c0392b;">"If I have more confidence, I would speak more."</div>
-      <div class="question-hint">What's wrong?</div>
+      <div class="error-sentence">"If I have more confidence, I would speak more."</div>
+      <div class="question-hint">What's wrong? Write the corrected sentence below.</div>
       <textarea id="d3_err1" placeholder="Identify the error and correct it..." rows="2"></textarea>
+      <div class="checker-row">
+        <button class="check-btn" onclick="checkError(1)">✓ Check</button>
+        <div class="check-result" id="res_d3_err1"></div>
+      </div>
     </div>
 
     <div class="question-block">
       <div class="question-label">Sentence 2</div>
-      <div class="question-text" style="font-style:italic; color: #c0392b;">"If I were you, I will try to be more friendly."</div>
-      <div class="question-hint">What's wrong?</div>
+      <div class="error-sentence">"If I were you, I will try to be more friendly."</div>
+      <div class="question-hint">What's wrong? Write the corrected sentence below.</div>
       <textarea id="d3_err2" placeholder="Identify the error and correct it..." rows="2"></textarea>
+      <div class="checker-row">
+        <button class="check-btn" onclick="checkError(2)">✓ Check</button>
+        <div class="check-result" id="res_d3_err2"></div>
+      </div>
     </div>
 
     <div class="question-block">
       <div class="question-label">Sentence 3</div>
-      <div class="question-text" style="font-style:italic; color: #c0392b;">"If we changing the supplier, we would improve quality."</div>
-      <div class="question-hint">What's wrong?</div>
+      <div class="error-sentence">"If we changing the supplier, we would improve quality."</div>
+      <div class="question-hint">What's wrong? Write the corrected sentence below.</div>
       <textarea id="d3_err3" placeholder="Identify the error and correct it..." rows="2"></textarea>
+      <div class="checker-row">
+        <button class="check-btn" onclick="checkError(3)">✓ Check</button>
+        <div class="check-result" id="res_d3_err3"></div>
+      </div>
+    </div>
+
+    <div class="check-all-wrapper">
+      <button class="check-all-btn" onclick="checkAllErrors()">Checar Tudo</button>
+      <div class="check-score" id="score_d3"></div>
     </div>
   </div>
 
@@ -919,6 +1326,16 @@ input[type="text"]:focus {
   </div>
 
   <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
+
+  <div class="section">
+    <div class="section-title">▶ Watch Before You Start</div>
+    <div class="section-intro">Watch the cultural intelligence video before reading the profiles below.</div>
+    <div class="yt-placeholder">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      ▶ Day 4 — Cultural Intelligence in Agribusiness [coming soon]
+    </div>
+    <p class="yt-placeholder-note">Link will be added when the video is ready.</p>
+  </div>
 
   <div class="section">
     <div class="section-title">Part 1: Predict First</div>
@@ -1049,7 +1466,7 @@ input[type="text"]:focus {
 
     <div class="question-block">
       <div class="question-label">Tough Question 1</div>
-      <div class="question-text">"Why should I partner with you and not someone else?"</div>
+      <div class="question-text">"Why should we partner with you instead of your competitors?"</div>
       <textarea id="d5_tough1" placeholder="Your answer..." rows="2"></textarea>
     </div>
     <div class="question-block">
@@ -1125,7 +1542,28 @@ input[type="text"]:focus {
 
   <div class="progress-bar" style="background: var(--teal-light)"><div class="progress-fill" style="width:20%; background: linear-gradient(90deg, var(--teal), #4caf82)"></div></div>
 
-  <div class="tip-box teal">This week you will prepare for a video called <strong>Mastering First Impressions — 7 Psychological Tips</strong>. In class, your professor will play it once. Your job over the next 5 days is to arrive ready to listen deeply, discuss confidently, and connect every tip to your real professional life.</div>
+  <div class="tip-box teal">This week you will prepare for the video <strong>7 Psychological Tricks to Make a Good First Impression</strong>. In class, your professor will play it once. Your job over the next 5 days is to arrive ready to listen deeply, discuss confidently, and connect every tip to your real professional life.</div>
+
+  <div class="section">
+    <div class="section-title teal">▶ Week 2 Introduction</div>
+    <div class="section-intro">Watch this short intro to understand what you'll be working on this week before jumping into the main video.</div>
+    <div class="yt-placeholder">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      ▶ Day 6 — Week 2 Introduction [coming soon]
+    </div>
+    <p class="yt-placeholder-note">Link will be added when the video is ready.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title teal">▶ Watch the Video</div>
+    <div class="section-intro">This is the video you will work with all week. Watch it once before you start — then come back and write your predictions below.</div>
+    <a class="yt-btn" href="https://www.youtube.com/watch?v=3W5JNZBFA1M&t=4s" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      ▶ Watch on YouTube — 7 Psychological Tricks
+    </a>
+  </div>
+
+  <hr class="section-rule teal">
 
   <div class="section">
     <div class="section-title teal">Part 1: What Do You Already Believe?</div>
@@ -1174,10 +1612,35 @@ input[type="text"]:focus {
   <div class="tip-box teal">Learning these words now means you can focus on the ideas during class — not on decoding individual words.</div>
 
   <div class="section">
+    <div class="section-title teal">▶ Vocabulary Walkthrough Video</div>
+    <div class="section-intro">Watch this before studying the flashcards below — it gives you the words in spoken context.</div>
+    <div class="yt-placeholder">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      ▶ Day 7 — Video Vocabulary Explained [coming soon]
+    </div>
+    <p class="yt-placeholder-note">Link will be added when the video is ready.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title teal">▶ Watch Again (Optional)</div>
+    <div class="section-intro">If you want to listen for the vocabulary while you study, open the video in another tab.</div>
+    <a class="yt-btn" href="https://www.youtube.com/watch?v=3W5JNZBFA1M&t=4s" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      ▶ Open Video on YouTube
+    </a>
+  </div>
+
+  <hr class="section-rule teal">
+
+  <div class="section">
     <div class="section-title teal">Part 1: Video Vocabulary in Context</div>
     <div class="section-time">⏱ 14–16 MINUTES</div>
-    <div class="section-intro">For each word, read the definition and the exact phrase from the video. Then write 1–2 sentences connecting it to your professional reality in agribusiness.</div>
+    <div class="section-intro">Study each word using the flashcard below. Tap to reveal the translation, video quote, and context. Use the audio button to hear the exact pronunciation. Then write your own sentence in the exercise area.</div>
 
+    <div id="fc-d7-mount"></div>
+
+    <div class="section-title teal" style="margin-top:24px;">Your Sentences</div>
+    <div class="section-intro">For each word, write 1–2 sentences connecting it to your professional reality in agribusiness.</div>
     <div id="video-vocab-d7"></div>
   </div>
 
@@ -1202,6 +1665,16 @@ input[type="text"]:focus {
   </div>
 
   <div class="progress-bar" style="background: var(--teal-light)"><div class="progress-fill" style="width:60%; background: linear-gradient(90deg, var(--teal), #4caf82)"></div></div>
+
+  <div class="section">
+    <div class="section-title teal">▶ How to Use These Chunks</div>
+    <div class="section-intro">Watch this before practicing — it shows the difference between using and not using these expressions in a real discussion.</div>
+    <div class="yt-placeholder">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      ▶ Day 8 — Chunks in Action [coming soon]
+    </div>
+    <p class="yt-placeholder-note">Link will be added when the video is ready.</p>
+  </div>
 
   <div class="section">
     <div class="section-title teal">Your Chunk Bank</div>
@@ -1232,6 +1705,17 @@ input[type="text"]:focus {
         </div>
       </div>
     </div>
+  </div>
+
+  <hr class="section-rule teal">
+
+  <div class="section">
+    <div class="section-title teal">▶ Video Reference</div>
+    <div class="section-intro">Re-watch if you want to double-check how the 7 tips are presented before writing your chunk sentences.</div>
+    <a class="yt-btn" href="https://www.youtube.com/watch?v=3W5JNZBFA1M&t=4s" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      ▶ Open Video on YouTube
+    </a>
   </div>
 
   <hr class="section-rule teal">
@@ -1287,6 +1771,17 @@ input[type="text"]:focus {
   <div class="tip-box teal">After the video in class, your professor will use sentences like the ones below to spark a discussion. Today you prepare your reactions — the goal is to react, not just agree.</div>
 
   <div class="section">
+    <div class="section-title teal">▶ Watch Before You Write</div>
+    <div class="section-intro">If you haven't watched the video yet this week, do it now. Your reactions below must be based on what you actually heard.</div>
+    <a class="yt-btn" href="https://www.youtube.com/watch?v=3W5JNZBFA1M&t=4s" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      ▶ Open Video on YouTube
+    </a>
+  </div>
+
+  <hr class="section-rule teal">
+
+  <div class="section">
     <div class="section-title teal">Part 1: React to These Sentences</div>
     <div class="section-time">⏱ 14–16 MINUTES</div>
     <div class="section-intro">Read each sentence. Then answer the follow-up question in 3–4 sentences using the chunks from Day 8. Be honest — disagreement makes for better conversation.</div>
@@ -1323,6 +1818,17 @@ input[type="text"]:focus {
   <div class="progress-bar" style="background: var(--teal-light)"><div class="progress-fill" style="width:100%; background: linear-gradient(90deg, var(--teal), #4caf82)"></div></div>
 
   <div class="tip-box teal">Before you start: open Day 6 and read your original ranking and your top 2 explanations. Keep that in mind as you work through today.</div>
+
+  <div class="section">
+    <div class="section-title teal">▶ Final Watch</div>
+    <div class="section-intro">Watch the video one more time with fresh eyes. Notice details you may have missed. Then write your reflection below.</div>
+    <a class="yt-btn" href="https://www.youtube.com/watch?v=3W5JNZBFA1M&t=4s" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      ▶ Open Video on YouTube
+    </a>
+  </div>
+
+  <hr class="section-rule teal">
 
   <div class="question-block">
     <div class="question-label teal">Reflection</div>
@@ -1407,7 +1913,7 @@ const STORAGE_KEY = 'talkit_unit2_firstimpressions';
 let currentDay = 1;
 let currentWeek = 1;
 
-// ── DYNAMIC CONTENT ──────────────────────────────────────────────────────
+// ── DYNAMIC CONTENT DATA ──────────────────────────────────────────────────
 
 const vocabItems = [
   {word: 'First impression', example: 'The opinion you form about someone in the first seconds of meeting them.'},
@@ -1564,19 +2070,104 @@ const tipVerdicts = [
   {num:7, title:"Pay Attention to Your Body Language", quote:'"body language has four times the influence on first impressions than the words that come out of your mouth"', id:"d10_v7"},
 ];
 
+// ── CHECKER — DAY 3 ──────────────────────────────────────────────────────
+
+const errorAnswers = {
+  1: {
+    correct: 'If I had more confidence, I would speak more.',
+    explanation: 'Error: "have" → "had". The Second Conditional requires Past Simple in the IF clause.'
+  },
+  2: {
+    correct: 'If I were you, I would try to be more friendly.',
+    explanation: 'Error: "will" → "would". The Second Conditional requires WOULD (not WILL) in the result clause.'
+  },
+  3: {
+    correct: 'If we changed the supplier, we would improve quality.',
+    explanation: 'Error: "changing" → "changed". The IF clause needs Past Simple, not a continuous form.'
+  }
+};
+
+function checkError(num) {
+  const val = (document.getElementById('d3_err' + num).value || '').trim().toLowerCase();
+  const res = document.getElementById('res_d3_err' + num);
+  res.style.display = 'flex';
+
+  const keywords = [
+    ['had', 'would speak'],
+    ['were', 'would try'],
+    ['changed', 'would improve'],
+  ][num - 1];
+
+  const isCorrect = keywords.every(k => val.includes(k));
+
+  if (isCorrect) {
+    res.className = 'check-result correct';
+    res.innerHTML = '✅ Correct! ' + errorAnswers[num].explanation;
+  } else {
+    res.className = 'check-result wrong';
+    res.innerHTML = '❌ Not quite. ' + errorAnswers[num].explanation + '<br><strong>Corrected sentence:</strong> ' + errorAnswers[num].correct;
+  }
+}
+
+function checkAllErrors() {
+  let score = 0;
+  for (let i = 1; i <= 3; i++) {
+    const val = (document.getElementById('d3_err' + i).value || '').trim().toLowerCase();
+    const keywords = [
+      ['had', 'would speak'],
+      ['were', 'would try'],
+      ['changed', 'would improve'],
+    ][i - 1];
+    const res = document.getElementById('res_d3_err' + i);
+    res.style.display = 'flex';
+    const isCorrect = keywords.every(k => val.includes(k));
+    if (isCorrect) {
+      score++;
+      res.className = 'check-result correct';
+      res.innerHTML = '✅ Correct! ' + errorAnswers[i].explanation;
+    } else {
+      res.className = 'check-result wrong';
+      res.innerHTML = '❌ ' + errorAnswers[i].explanation + '<br><strong>Corrected:</strong> ' + errorAnswers[i].correct;
+    }
+  }
+  const scoreEl = document.getElementById('score_d3');
+  scoreEl.style.display = 'block';
+  const emojis = ['😅 Keep reviewing!', '👍 Almost there!', '🎉 Perfect!'];
+  scoreEl.textContent = score + '/3 — ' + emojis[score - (score < 1 ? 0 : score - 1)];
+  if (score === 3) scoreEl.textContent = '3/3 — 🎉 Perfect!';
+  else if (score === 2) scoreEl.textContent = '2/3 — 👍 Almost there!';
+  else scoreEl.textContent = score + '/3 — 😅 Keep reviewing!';
+}
+
 // ── RENDER ───────────────────────────────────────────────────────────────
 
 function renderDay2() {
+  // ── FLASHCARD D2 ──────────────────────────────────────────
+  const fcCont = document.getElementById('fc-d2-mount');
+  if (fcCont) {
+    fcCont.innerHTML = buildFlashcardHTML('d2', vocabItems.map((v,i) => ({
+      step: (i+1).toString().padStart(2,'0') + ' / ' + vocabItems.length,
+      word: v.word,
+      ipa: '',
+      trans: v.example,
+      ex: fcD2Examples[i].ex,
+      pt: fcD2Examples[i].pt,
+      why: fcD2Examples[i].why,
+    })), false);
+    fcRender('d2');
+  }
+  // ── VOCAB TEXTAREAS ──────────────────────────────────────
   const cont = document.getElementById('vocab-items-d2');
-  if (!cont) return;
-  vocabItems.forEach((v, i) => {
-    cont.innerHTML += `
-      <div class="question-block">
-        <div class="question-label">${v.word}</div>
-        <div class="question-hint">${v.example}</div>
-        <textarea id="d2_vocab_${i}" placeholder="Write 1–2 sentences connecting this to your real job..." rows="2"></textarea>
-      </div>`;
-  });
+  if (cont) {
+    vocabItems.forEach((v, i) => {
+      cont.innerHTML += `
+        <div class="question-block">
+          <div class="question-label">${v.word}</div>
+          <div class="question-hint">${v.example}</div>
+          <textarea id="d2_vocab_${i}" placeholder="Write 1–2 sentences connecting this to your real job..." rows="2"></textarea>
+        </div>`;
+    });
+  }
   const psCont = document.getElementById('present-simple-starters');
   if (!psCont) return;
   psStarters.forEach((s, i) => {
@@ -1643,19 +2234,32 @@ function renderDay6() {
 }
 
 function renderDay7() {
+  // ── FLASHCARD D7 ──────────────────────────────────────────
+  const fcCont = document.getElementById('fc-d7-mount');
+  if (fcCont) {
+    fcCont.innerHTML = buildFlashcardHTML('d7', videoVocab.map((v,i) => ({
+      step: (i+1).toString().padStart(2,'0') + ' / ' + videoVocab.length,
+      word: v.word,
+      ipa: '',
+      trans: v.def,
+      ex: v.quote.replace(/^"|"$/g,''),
+      pt: fcD7Pt[i],
+      why: fcD7Why[i],
+    })), true);
+    fcRender('d7');
+  }
+  // ── VOCAB TEXTAREAS ──────────────────────────────────────
   const cont = document.getElementById('video-vocab-d7');
-  if (!cont) return;
-  videoVocab.forEach((v, i) => {
-    cont.innerHTML += `
-      <div class="vocab-card" style="margin-bottom:12px;">
-        <div class="vocab-card-header teal">${v.word}</div>
-        <div class="vocab-card-body">
-          <div class="vocab-def">${v.def}</div>
-          <div class="vocab-quote">${v.quote}</div>
+  if (cont) {
+    videoVocab.forEach((v, i) => {
+      cont.innerHTML += `
+        <div class="question-block">
+          <div class="question-label teal">${v.word}</div>
+          <div class="question-hint">${v.def}</div>
           <textarea id="d7_vocab_${i}" placeholder="Write 1–2 sentences connecting this to your professional reality in agribusiness..." rows="2" class="teal"></textarea>
-        </div>
-      </div>`;
-  });
+        </div>`;
+    });
+  }
 }
 
 function renderDay8() {
@@ -1704,6 +2308,244 @@ function renderDay10() {
         </div>
       </div>`;
   });
+}
+
+// ── FLASHCARD DATA — DAY 2 ───────────────────────────────────────────────
+
+const fcD2Examples = [
+  { ex: "First impressions in agribusiness can define a long-term partnership.", pt: "As primeiras impressões no agronegócio podem definir uma parceria de longo prazo.", why: "O momento em que você é avaliado como parceiro começa nos primeiros segundos." },
+  { ex: "Confidence in English allows you to negotiate more effectively.", pt: "A confiança em inglês permite negociar com mais eficácia.", why: "Sem confiança, o profissional de agro perde espaço em reuniões internacionais." },
+  { ex: "Your body language communicates before you even speak.", pt: "A sua linguagem corporal comunica antes mesmo de você falar.", why: "Em encontros com compradores estrangeiros, a postura diz mais do que as palavras." },
+  { ex: "Strong eye contact shows that you are engaged in the conversation.", pt: "Contato visual firme mostra que você está engajado na conversa.", why: "Em culturas como a americana e a alemã, evitar o olhar é interpretado como falta de confiança." },
+  { ex: "An approachable manner helps build trust with new clients.", pt: "Uma postura acessível ajuda a construir confiança com novos clientes.", why: "Compradores internacionais preferem parceiros com quem se sentem à vontade para conversar." },
+  { ex: "A professional appearance is expected at international trade fairs.", pt: "Uma aparência profissional é esperada em feiras internacionais.", why: "Eventos como Agrishow e Fruit Logistica são vitrines globais do agronegócio brasileiro." },
+  { ex: "A trustworthy partner is essential in export negotiations.", pt: "Um parceiro confiável é essencial em negociações de exportação.", why: "Confiabilidade é o principal critério de seleção de fornecedores no mercado internacional." },
+  { ex: "Being enthusiastic about your product makes buyers more interested.", pt: "Ser entusiasta em relação ao seu produto deixa os compradores mais interessados.", why: "O entusiasmo genuíno é percebido como sinal de qualidade e credibilidade." },
+  { ex: "Business development requires strong relationship-building skills.", pt: "O desenvolvimento de negócios exige habilidades sólidas de construção de relacionamentos.", why: "No agro, relacionamentos duradouros valem mais do que uma única venda." },
+  { ex: "Always prepare an agenda before a client meeting.", pt: "Sempre prepare uma pauta antes de uma reunião com cliente.", why: "Reuniões bem conduzidas mostram respeito pelo tempo do interlocutor internacional." },
+  { ex: "A strong partnership can open new export markets.", pt: "Uma parceria sólida pode abrir novos mercados de exportação.", why: "Parcerias estratégicas são o principal motor de crescimento internacional no agro." },
+  { ex: "Company values define how you treat partners and clients.", pt: "Os valores da empresa definem como você trata parceiros e clientes.", why: "Valores claros são um diferencial competitivo em mercados onde a ética é exigida." },
+  { ex: "Understanding international clients helps you adapt your communication style.", pt: "Entender clientes internacionais ajuda a adaptar seu estilo de comunicação.", why: "Cada mercado tem expectativas diferentes — conhecê-las é vantagem competitiva." },
+];
+
+const fcD7Pt = [
+  "As primeiras impressões das pessoas são formadas em sete segundos.",
+  "As pessoas muitas vezes veem a paixão como um sinal cativante de força e inspiração.",
+  "Sorrir vai fazer você parecer acessível e descontraído.",
+  "Sorrir ou usar humor amigável vai fazer você parecer acessível e descontraído.",
+  "Seja educado e mostre boas maneiras com por favor e obrigado.",
+  "As pessoas querem se sentir respeitadas antes de reciprocar.",
+  "A abertura é uma característica convidativa — experimente novas coisas.",
+  "Deixe as pessoas saberem que você está disposto a tentar algo novo com elas.",
+  "As pessoas vão ser atraídas pela sua resiliência.",
+  "Há uma diferença entre confiança e egocentrismo.",
+  "Para evitar parecer presunçoso, concentre-se em preocupações maiores no mundo.",
+  "As pessoas também gostam de ver um grau de humildade.",
+  "Isso vai mostrar julgamento sábio da sua parte.",
+  "A linguagem corporal tem quatro vezes mais influência nas primeiras impressões do que as palavras.",
+  "Certifique-se de que sua postura está boa, faça contato visual forte e incline-se para frente.",
+];
+
+const fcD7Why = [
+  "Você tem menos de 10 segundos para criar uma boa impressão em uma call internacional.",
+  "Mostrar entusiasmo pelo seu produto ou empresa é percebido como competência e credibilidade.",
+  "Uma postura acessível reduz a barreira cultural em reuniões com compradores estrangeiros.",
+  "Humor contextualizado, quando usado com cuidado, cria conexão e humaniza a conversa.",
+  "Boas maneiras são universais — e notadas imediatamente por profissionais internacionais.",
+  "Em negociações, quem demonstra respeito primeiro geralmente recebe o mesmo de volta.",
+  "Compradores internacionais valorizam fornecedores dispostos a inovar e experimentar.",
+  "Mostrar disposição para aprender sobre a cultura do parceiro gera confiança mútua.",
+  "No agro, crise é rotina. Mostrar resiliência é mostrar que você é um parceiro confiável.",
+  "Em culturas como a japonesa, parecer muito confiante pode ser interpretado negativamente.",
+  "Demonstrar interesse genuíno pelo negócio do outro é o oposto do egocentrismo.",
+  "Humildade é percebida como maturidade profissional — especialmente em mercados asiáticos.",
+  "Reagendar uma reunião quando você não está bem demonstra respeito e profissionalismo.",
+  "Antes mesmo de abrir a boca, sua postura e expressão já estão sendo avaliadas.",
+  "Postura ereta e contato visual firme são lidos como sinais de confiança em qualquer cultura.",
+];
+
+// ── FLASHCARD ENGINE ─────────────────────────────────────────────────────
+
+const FC = {}; // state per deck
+
+function buildFlashcardHTML(deckId, cards, isTeal) {
+  const colorCls = isTeal ? 'teal' : '';
+  const dotCls   = isTeal ? 'teal-dot' : '';
+  const cardCls  = isTeal ? 'teal-card' : '';
+  const wordCls  = isTeal ? 'teal' : '';
+  const btnCls   = isTeal ? 'teal-btn' : '';
+  const spdCls   = isTeal ? 'teal-spd' : '';
+  const navCls   = isTeal ? 'teal-nav' : '';
+  const shellCls = isTeal ? 'teal' : '';
+  const labelCls = isTeal ? 'teal' : '';
+
+  FC[deckId] = { idx: 0, spd: 1, exSpd: 1, voice: null, cards, isTeal };
+
+  const dots = cards.map((_,i) =>
+    `<div class="fc-dot${i===0?' active':''} ${dotCls}" id="${deckId}-dot-${i}" onclick="fcGoTo('${deckId}',${i})"></div>`
+  ).join('');
+
+  return `
+    <div class="fc-shell">
+      <div class="fc-shell-title ${shellCls}">📚 Vocabulary Flashcards — ${cards.length} words</div>
+      <div class="fc-shell-sub">Tap the card to reveal translation and example. Use the audio button to hear the pronunciation.</div>
+      <div class="fc-dots" id="${deckId}-dots">${dots}</div>
+      <div class="fc-counter" id="${deckId}-counter">1 of ${cards.length}</div>
+      <div class="fc-card ${cardCls}" id="${deckId}-card" onclick="fcClick(event,'${deckId}')">
+        <div class="fc-front" id="${deckId}-front">
+          <div class="fc-flip-hint">Tap to flip</div>
+          <div class="fc-step" id="${deckId}-step"></div>
+          <div class="fc-word ${wordCls}" id="${deckId}-word"></div>
+          <div class="fc-ipa" id="${deckId}-ipa"></div>
+          <div class="fc-audio-row">
+            <button class="fc-abtn ${btnCls}" id="${deckId}-abtn-word" onclick="event.stopPropagation();fcSayWord('${deckId}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+              Listen
+            </button>
+            <button class="fc-spd ${spdCls} active" id="${deckId}-spd1" onclick="event.stopPropagation();fcSetSpd('${deckId}',1)">1×</button>
+            <button class="fc-spd ${spdCls}" id="${deckId}-spd07" onclick="event.stopPropagation();fcSetSpd('${deckId}',0.7)">0.7×</button>
+          </div>
+        </div>
+        <div class="fc-back" id="${deckId}-back">
+          <div class="fc-back-label ${labelCls}">Translation & context</div>
+          <div class="fc-translation ${colorCls}" id="${deckId}-trans"></div>
+          <div class="fc-ex-label">Example from context</div>
+          <div class="fc-audio-row" style="margin-bottom:8px;">
+            <button class="fc-abtn ${btnCls}" id="${deckId}-abtn-ex" onclick="event.stopPropagation();fcSayEx('${deckId}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+              Listen to example
+            </button>
+            <button class="fc-spd ${spdCls} active" id="${deckId}-exspd1" onclick="event.stopPropagation();fcSetExSpd('${deckId}',1)">1×</button>
+            <button class="fc-spd ${spdCls}" id="${deckId}-exspd07" onclick="event.stopPropagation();fcSetExSpd('${deckId}',0.7)">0.7×</button>
+          </div>
+          <div class="fc-example ${colorCls}" id="${deckId}-ex"></div>
+          <div class="fc-example-pt" id="${deckId}-ex-pt"></div>
+          <div class="fc-why ${colorCls}" id="${deckId}-why"></div>
+        </div>
+      </div>
+      <div class="fc-nav">
+        <button class="fc-nav-btn ${navCls}" onclick="fcNav('${deckId}',-1)">← Previous</button>
+        <button class="fc-nav-btn ${navCls}" onclick="fcNav('${deckId}',1)">Next →</button>
+      </div>
+    </div>`;
+}
+
+function fcRender(deckId) {
+  const s = FC[deckId]; if (!s) return;
+  const c = s.cards[s.idx];
+  document.getElementById(deckId+'-step').textContent = c.step;
+  document.getElementById(deckId+'-word').textContent = c.word;
+  document.getElementById(deckId+'-ipa').textContent  = c.ipa || '';
+  document.getElementById(deckId+'-trans').textContent = c.trans;
+  document.getElementById(deckId+'-ex').textContent   = c.ex;
+  document.getElementById(deckId+'-ex-pt').textContent = c.pt;
+  document.getElementById(deckId+'-why').textContent  = 'Why it matters: ' + c.why;
+  document.getElementById(deckId+'-counter').textContent = (s.idx+1) + ' of ' + s.cards.length;
+  // reset flip
+  const front = document.getElementById(deckId+'-front');
+  const back  = document.getElementById(deckId+'-back');
+  if (front) { front.classList.remove('hidden'); }
+  if (back)  { back.classList.remove('visible'); }
+  fcUpdateDots(deckId);
+  fcStopAll(deckId);
+}
+
+function fcUpdateDots(deckId) {
+  const s = FC[deckId]; if (!s) return;
+  const isTeal = s.isTeal;
+  s.cards.forEach((_,i) => {
+    const d = document.getElementById(deckId+'-dot-'+i); if (!d) return;
+    const base = 'fc-dot' + (isTeal ? ' teal-dot' : '');
+    if (i === s.idx) d.className = base + ' active';
+    else if (i < s.idx) d.className = base + ' done';
+    else d.className = base;
+  });
+}
+
+function fcClick(e, deckId) {
+  if (e.target.closest('.fc-abtn') || e.target.closest('.fc-spd')) return;
+  const front = document.getElementById(deckId+'-front');
+  const back  = document.getElementById(deckId+'-back');
+  const flipped = back.classList.contains('visible');
+  front.classList.toggle('hidden', !flipped);
+  back.classList.toggle('visible', !flipped);
+}
+
+function fcNav(deckId, dir) {
+  const s = FC[deckId]; if (!s) return;
+  s.idx = (s.idx + dir + s.cards.length) % s.cards.length;
+  fcRender(deckId);
+}
+
+function fcGoTo(deckId, idx) {
+  const s = FC[deckId]; if (!s) return;
+  s.idx = idx;
+  fcRender(deckId);
+}
+
+// ── TTS ENGINE ───────────────────────────────────────────────────────────
+
+let _fcVoice = null;
+const _PREF = ['Google US English','Samantha','Karen','Google UK English Female','Microsoft Aria'];
+
+function fcLoadVoice() {
+  const all = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+  const en = all.filter(v => v.lang.startsWith('en'));
+  if (!en.length) { setTimeout(fcLoadVoice, 300); return; }
+  const sorted = [...en].sort((a,b) => {
+    const ai = _PREF.findIndex(p => a.name.includes(p.split(' ')[0]) && a.name.includes(p.split(' ').slice(-1)[0]));
+    const bi = _PREF.findIndex(p => b.name.includes(p.split(' ')[0]) && b.name.includes(p.split(' ').slice(-1)[0]));
+    return (ai<0?99:ai)-(bi<0?99:bi);
+  });
+  _fcVoice = sorted[0] || null;
+  // propagate to all active decks
+  Object.keys(FC).forEach(id => { FC[id].voice = _fcVoice; });
+}
+
+function fcStopAll(deckId) {
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  const ids = [deckId+'-abtn-word', deckId+'-abtn-ex'];
+  ids.forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('playing'); });
+}
+
+function fcSay(text, rate, btnId, deckId) {
+  fcStopAll(deckId);
+  if (!window.speechSynthesis) return;
+  const u = new SpeechSynthesisUtterance(text);
+  const v = FC[deckId]?.voice || _fcVoice;
+  if (v) u.voice = v;
+  u.lang = 'en-US';
+  u.rate = rate;
+  const btn = document.getElementById(btnId);
+  if (btn) btn.classList.add('playing');
+  u.onend = u.onerror = () => { if (btn) btn.classList.remove('playing'); };
+  window.speechSynthesis.speak(u);
+}
+
+function fcSayWord(deckId) {
+  const s = FC[deckId]; if (!s) return;
+  fcSay(s.cards[s.idx].word, s.spd, deckId+'-abtn-word', deckId);
+}
+
+function fcSayEx(deckId) {
+  const s = FC[deckId]; if (!s) return;
+  fcSay(s.cards[s.idx].ex, s.exSpd, deckId+'-abtn-ex', deckId);
+}
+
+function fcSetSpd(deckId, val) {
+  const s = FC[deckId]; if (!s) return;
+  s.spd = val;
+  document.getElementById(deckId+'-spd1') .classList.toggle('active', val===1);
+  document.getElementById(deckId+'-spd07').classList.toggle('active', val===0.7);
+  fcSayWord(deckId);
+}
+
+function fcSetExSpd(deckId, val) {
+  const s = FC[deckId]; if (!s) return;
+  s.exSpd = val;
+  document.getElementById(deckId+'-exspd1') .classList.toggle('active', val===1);
+  document.getElementById(deckId+'-exspd07').classList.toggle('active', val===0.7);
+  fcSayEx(deckId);
 }
 
 // ── NAVIGATION ───────────────────────────────────────────────────────────
@@ -1762,7 +2604,7 @@ function loadAll() {
       el.value = val;
       if (id === 'd5_market' && val) {
         document.querySelectorAll('.market-option').forEach(o => {
-          if (o.onclick.toString().includes(val)) o.classList.add('selected');
+          if (o.getAttribute('onclick') && o.getAttribute('onclick').includes(val)) o.classList.add('selected');
         });
       }
     }
@@ -1928,6 +2770,14 @@ renderDay8();
 renderDay9();
 renderDay10();
 loadAll();
+
+// TTS voice init
+if (window.speechSynthesis) {
+  if (window.speechSynthesis.onvoiceschanged !== undefined) {
+    window.speechSynthesis.onvoiceschanged = fcLoadVoice;
+  }
+  fcLoadVoice();
+}
 </script>
 </body>
 </html>
